@@ -10,10 +10,10 @@
 //!
 //! The current public surface is limited to validated finite limits, abstract
 //! checked time primitives, bounded resource-accounting state, stable task
-//! identity, and a validated relative-deadline scalar. Scheduling, analysis,
-//! and simulation APIs are not
-//! yet exposed. No no-heap, timing,
-//! WCET, or release claim is established by source syntax alone.
+//! identity, validated periodic task parameters, a bounded borrowed task-set
+//! view, and a validated relative-deadline scalar. Scheduling, analysis, and
+//! simulation APIs are not yet exposed. No no-heap, timing, WCET, or release
+//! claim is established by source syntax alone.
 
 mod error;
 mod limits;
@@ -24,5 +24,8 @@ mod time;
 pub use error::LimitError;
 pub use limits::Limit;
 pub use resource::{Budget, BudgetError, CapacityError, CapacityState};
-pub use task::{DeadlineError, RelativeDeadline, TaskId};
+pub use task::{
+    DeadlineError, RelativeDeadline, TaskId, TaskParameterError, TaskParameters, TaskSet,
+    TaskSetError,
+};
 pub use time::{Duration, Instant, TimeArithmeticError};

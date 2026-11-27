@@ -2,7 +2,8 @@
 
 use sov_time_domain::{
     Budget, BudgetError, CapacityError, CapacityState, DeadlineError, Duration, Instant, Limit,
-    LimitError, RelativeDeadline, TaskId, TimeArithmeticError,
+    LimitError, RelativeDeadline, TaskId, TaskParameterError, TaskParameters, TaskSet,
+    TaskSetError, TimeArithmeticError,
 };
 
 #[test]
@@ -319,4 +320,338 @@ fn task_id_equality_is_exact_raw_identity() {
 #[test]
 fn task_id_supports_minimal_value_traits() {
     assert_task_id_traits::<TaskId>();
+}
+
+fn make_valid_task(id: u32, execution: u64, deadline: u64, period: u64) -> Option<TaskParameters> {
+    let deadline_value = match RelativeDeadline::new(Duration::from_ticks(deadline)) {
+        Ok(value) => value,
+        Err(_) => return None,
+    };
+
+    TaskParameters::new(
+        TaskId::from_raw(id),
+        Duration::from_ticks(execution),
+        Duration::from_ticks(period),
+        deadline_value,
+    )
+    .ok()
+}
+
+#[test]
+fn task_parameters_preserve_exact_valid_fields() {
+    let task = make_valid_task(7, 2, 4, 5);
+    assert!(task.is_some());
+    let Some(task) = task else {
+        return;
+    };
+
+    assert!(task.id() == TaskId::from_raw(7));
+    assert!(task.execution().ticks() == 2);
+    assert!(task.deadline().duration().ticks() == 4);
+    assert!(task.period().ticks() == 5);
+}
+
+#[test]
+fn task_parameters_reject_zero_execution_and_zero_period_distinctly() {
+    let deadline = RelativeDeadline::new(Duration::from_ticks(1));
+    assert!(deadline.is_ok());
+
+    if let Ok(deadline) = deadline {
+        let zero_execution = TaskParameters::new(
+            TaskId::from_raw(1),
+            Duration::ZERO,
+            Duration::from_ticks(1),
+            deadline,
+        );
+        assert!(matches!(
+            zero_execution,
+            Err(TaskParameterError::ZeroExecution)
+        ));
+    }
+
+    let deadline = RelativeDeadline::new(Duration::from_ticks(1));
+    assert!(deadline.is_ok());
+
+    if let Ok(deadline) = deadline {
+        let zero_period = TaskParameters::new(
+            TaskId::from_raw(1),
+            Duration::from_ticks(1),
+            Duration::ZERO,
+            deadline,
+        );
+        assert!(matches!(zero_period, Err(TaskParameterError::ZeroPeriod)));
+    }
+}
+
+#[test]
+fn task_parameters_preserve_distinct_cross_field_failures() {
+    let short_deadline = RelativeDeadline::new(Duration::from_ticks(1));
+    assert!(short_deadline.is_ok());
+
+    if let Ok(short_deadline) = short_deadline {
+        let execution_exceeds_deadline = TaskParameters::new(
+            TaskId::from_raw(1),
+            Duration::from_ticks(2),
+            Duration::from_ticks(2),
+            short_deadline,
+        );
+        assert!(matches!(
+            execution_exceeds_deadline,
+            Err(TaskParameterError::ExecutionExceedsDeadline)
+        ));
+    }
+
+    let long_deadline = RelativeDeadline::new(Duration::from_ticks(2));
+    assert!(long_deadline.is_ok());
+
+    if let Ok(long_deadline) = long_deadline {
+        let deadline_exceeds_period = TaskParameters::new(
+            TaskId::from_raw(1),
+            Duration::from_ticks(1),
+            Duration::from_ticks(1),
+            long_deadline,
+        );
+        assert!(matches!(
+            deadline_exceeds_period,
+            Err(TaskParameterError::DeadlineExceedsPeriod)
+        ));
+    }
+}
+
+#[test]
+fn task_parameters_accept_equality_boundaries() {
+    let c_equals_d = make_valid_task(1, 2, 2, 3);
+    assert!(c_equals_d.is_some());
+    let Some(c_equals_d) = c_equals_d else {
+        return;
+    };
+    let d_equals_t = make_valid_task(2, 2, 3, 3);
+    assert!(d_equals_t.is_some());
+    let Some(d_equals_t) = d_equals_t else {
+        return;
+    };
+
+    assert!(c_equals_d.execution().ticks() == c_equals_d.deadline().duration().ticks());
+    assert!(d_equals_t.deadline().duration().ticks() == d_equals_t.period().ticks());
+}
+
+#[test]
+fn empty_task_set_is_valid() {
+    let limit = Limit::new(1);
+    assert!(limit.is_ok());
+
+    if let Ok(limit) = limit {
+        let tasks: [TaskParameters; 0] = [];
+        let result = TaskSet::new(&tasks, limit);
+        assert!(matches!(result, Ok(set) if set.tasks().is_empty()));
+    }
+}
+
+#[test]
+fn task_set_accepts_exact_caller_capacity_and_rejects_capacity_plus_one() {
+    let first = make_valid_task(1, 1, 1, 2);
+    assert!(first.is_some());
+    let Some(first) = first else {
+        return;
+    };
+    let second = make_valid_task(2, 1, 1, 2);
+    assert!(second.is_some());
+    let Some(second) = second else {
+        return;
+    };
+    let exact_tasks = [first, second];
+
+    let exact_limit = Limit::new(2);
+    assert!(exact_limit.is_ok());
+    if let Ok(exact_limit) = exact_limit {
+        let result = TaskSet::new(&exact_tasks, exact_limit);
+        assert!(matches!(result, Ok(set) if set.tasks().len() == 2));
+    }
+
+    let first = make_valid_task(1, 1, 1, 2);
+    assert!(first.is_some());
+    let Some(first) = first else {
+        return;
+    };
+    let second = make_valid_task(2, 1, 1, 2);
+    assert!(second.is_some());
+    let Some(second) = second else {
+        return;
+    };
+    let third = make_valid_task(3, 1, 1, 2);
+    assert!(third.is_some());
+    let Some(third) = third else {
+        return;
+    };
+    let over_tasks = [first, second, third];
+
+    let small_limit = Limit::new(2);
+    assert!(small_limit.is_ok());
+    if let Ok(small_limit) = small_limit {
+        let result = TaskSet::new(&over_tasks, small_limit);
+        assert!(matches!(result, Err(TaskSetError::CapacityExceeded)));
+    }
+}
+
+#[test]
+fn task_set_rejects_duplicate_identity_without_mutating_caller_slice() {
+    let first = make_valid_task(9, 1, 1, 2);
+    assert!(first.is_some());
+    let Some(first) = first else {
+        return;
+    };
+    let second = make_valid_task(9, 1, 1, 3);
+    assert!(second.is_some());
+    let Some(second) = second else {
+        return;
+    };
+    let tasks = [first, second];
+
+    let limit = Limit::new(2);
+    assert!(limit.is_ok());
+
+    if let Ok(limit) = limit {
+        let result = TaskSet::new(&tasks, limit);
+        assert!(matches!(
+            result,
+            Err(TaskSetError::DuplicateTaskId(id)) if id == TaskId::from_raw(9)
+        ));
+        let mut after = tasks.iter();
+        assert!(matches!(
+            after.next(),
+            Some(task) if task.id() == TaskId::from_raw(9) && task.period().ticks() == 2
+        ));
+        assert!(matches!(
+            after.next(),
+            Some(task) if task.id() == TaskId::from_raw(9) && task.period().ticks() == 3
+        ));
+        assert!(after.next().is_none());
+    }
+}
+
+#[test]
+fn task_set_exposes_finite_read_only_input_order_without_priority_state() {
+    let first = make_valid_task(20, 1, 1, 2);
+    assert!(first.is_some());
+    let Some(first) = first else {
+        return;
+    };
+    let second = make_valid_task(10, 1, 1, 2);
+    assert!(second.is_some());
+    let Some(second) = second else {
+        return;
+    };
+    let tasks = [first, second];
+
+    let limit = Limit::new(2);
+    assert!(limit.is_ok());
+
+    if let Ok(limit) = limit {
+        let result = TaskSet::new(&tasks, limit);
+        assert!(result.is_ok());
+
+        if let Ok(set) = result {
+            let mut iter = set.tasks().iter();
+            assert!(matches!(iter.next(), Some(task) if task.id() == TaskId::from_raw(20)));
+            assert!(matches!(iter.next(), Some(task) if task.id() == TaskId::from_raw(10)));
+            assert!(iter.next().is_none());
+            assert!(set.limit().get() == 2);
+        }
+    }
+}
+
+#[test]
+fn task_set_accepts_owner_maximum_of_thirty_two_unique_tasks() {
+    let mut tasks = Vec::new();
+    for id in 0_u32..32 {
+        let task = make_valid_task(id, 1, 1, 2);
+        assert!(task.is_some());
+        let Some(task) = task else {
+            return;
+        };
+        tasks.push(task);
+    }
+
+    let limit = Limit::new(32);
+    assert!(limit.is_ok());
+
+    if let Ok(limit) = limit {
+        let result = TaskSet::new(tasks.as_slice(), limit);
+        assert!(matches!(result, Ok(set) if set.tasks().len() == 32));
+    }
+}
+
+#[test]
+fn task_set_rejects_thirty_three_before_duplicate_semantics() {
+    let mut tasks = Vec::new();
+    for id in 0_u32..32 {
+        let task = make_valid_task(id, 1, 1, 2);
+        assert!(task.is_some());
+        let Some(task) = task else {
+            return;
+        };
+        tasks.push(task);
+    }
+    let duplicate_beyond_capacity = make_valid_task(0, 1, 1, 2);
+    assert!(duplicate_beyond_capacity.is_some());
+    let Some(duplicate_beyond_capacity) = duplicate_beyond_capacity else {
+        return;
+    };
+    tasks.push(duplicate_beyond_capacity);
+
+    let limit = Limit::new(33);
+    assert!(limit.is_ok());
+
+    if let Ok(limit) = limit {
+        let result = TaskSet::new(tasks.as_slice(), limit);
+        assert!(matches!(result, Err(TaskSetError::TaskCapacityExceeded)));
+    }
+}
+
+#[test]
+fn task_set_permutation_preserves_validity() {
+    let first = make_valid_task(10, 1, 1, 2);
+    assert!(first.is_some());
+    let Some(first) = first else {
+        return;
+    };
+    let second = make_valid_task(20, 1, 1, 3);
+    assert!(second.is_some());
+    let Some(second) = second else {
+        return;
+    };
+    let first_order = [first, second];
+
+    let first = make_valid_task(10, 1, 1, 2);
+    assert!(first.is_some());
+    let Some(first) = first else {
+        return;
+    };
+    let second = make_valid_task(20, 1, 1, 3);
+    assert!(second.is_some());
+    let Some(second) = second else {
+        return;
+    };
+    let second_order = [second, first];
+
+    let first_limit = Limit::new(2);
+    let second_limit = Limit::new(2);
+    assert!(first_limit.is_ok());
+    assert!(second_limit.is_ok());
+
+    if let (Ok(first_limit), Ok(second_limit)) = (first_limit, second_limit) {
+        assert!(TaskSet::new(&first_order, first_limit).is_ok());
+        assert!(TaskSet::new(&second_order, second_limit).is_ok());
+    }
+}
+
+fn assert_task_parameter_value_traits<T: core::fmt::Debug + Eq>() {}
+
+#[test]
+fn task_parameter_and_task_set_errors_support_diagnostic_equality() {
+    assert_task_parameter_value_traits::<TaskParameters>();
+    assert_public_error_traits::<TaskParameterError>();
+    assert_public_error_traits::<TaskSetError>();
+    assert!(TaskSetError::CapacityExceeded != TaskSetError::TaskCapacityExceeded);
+    assert!(TaskSetError::TaskCapacityExceeded != TaskSetError::IndexConversionFailure);
 }
