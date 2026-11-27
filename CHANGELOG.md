@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.7
+@version 0.1.0-draft.8
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -18,7 +18,7 @@ This file records project changes. Entries under Unreleased describe development
 - Workspace directory scaffold separating the domain, application, contracts, browser interoperability, web interface, and web entry point.
 - Initial project overview, contribution requirements, and security reporting guidance.
 - Exact Rust 1.99.1 toolchain selection in the local root configuration; complete component, target, and build verification remains pending.
-- Verified Git ignore behavior for project-local build outputs, local evidence, private source bindings, and environment files. Cargo.lock remains eligible for tracking.
+- Verified Git ignore behavior for project-local build outputs, local evidence, private source bindings, environment files, and the unpublished internal `plan.md`. Cargo.lock and Cargo manifests remain eligible for tracking.
 - Rust 2024 parsing and style edition selection in `rustfmt.toml`; TOML syntax verified.
 - Explicit Clippy configuration excluding `unwrap` and `expect` exemptions; exact content and TOML syntax verified. Effective lint enforcement remains pending.
 
