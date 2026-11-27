@@ -1,0 +1,74 @@
+# SOV-TIME F06 browser-interop structure working record.
+
+schema_version = "0.1.0-draft.1"
+project_id = "SOV-TIME"
+crate_id = "SOV_TIME_BROWSER_INTEROP"
+package_name = "sov-time-browser-interop"
+semantic_owner = "TYPED_BROWSER_INTEROP"
+candidate_state = "WORKING_PHASE_F_TOPOLOGY"
+evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+allowed_project_dependency_ids = ["SOV_TIME_CONTRACTS"]
+prohibited_dependency_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_APPLICATION", "SOV_TIME_WEB_UI", "SOV_TIME_WEB_ENTRY"]
+initial_persistent_browser_storage_required = false
+
+unresolved_items = [
+  "RFW074_ZERO_PRIMARY_PROFILE_BLOCKS_IMPLEMENTATION_COMMITMENT",
+  "EXACT_BROWSER_ADAPTER_API_SHAPE_UNRESOLVED",
+  "EXACT_EXTERNAL_BROWSER_DEPENDENCY_SET_AND_FEATURE_SET_UNSELECTED",
+  "MAX_IMPORT_BYTES_AND_CODEC_SPECIFIC_PARSE_LIMITS_UNRESOLVED",
+]
+
+[[unit]]
+path = "src/lib.rs"
+file_id = "browser_interop.root"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "CRATE_ROOT_LIBRARY"
+semantic_owner = "TYPED_BROWSER_INTEROP"
+purpose = "Compose approved browser-effect adapters without leaking browser handles inward."
+
+[[unit]]
+path = "src/error.rs"
+file_id = "browser_interop.error"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "TYPED_BROWSER_INTEROP"
+purpose = "Represent bounded browser acquisition/export failures while preserving contract/application causes."
+
+[[unit]]
+path = "src/file_import.rs"
+file_id = "browser_interop.file_import"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "BROWSER_INTEROP_MODULE"
+semantic_owner = "TYPED_BROWSER_INTEROP"
+purpose = "Own explicit local user-selected file acquisition, byte bounds, strict decode handoff and cleanup."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/file_export.rs"
+file_id = "browser_interop.file_export"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "BROWSER_INTEROP_MODULE"
+semantic_owner = "TYPED_BROWSER_INTEROP"
+purpose = "Own bounded local Blob/download/object-URL effects and deterministic resource cleanup."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/storage.rs"
+file_id = "browser_interop.storage"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "DELETE_CANDIDATE"
+candidate_primary_class = "NONE"
+semantic_owner = "NONE"
+purpose = "Persistent browser storage is not required by the initial product; do not create persistence from scaffold presence."
+classification_state = "DELETION_REQUIRES_REFERENCE_CLOSURE_PROOF"
+
+[[test_unit]]
+path = "tests/browser_tests.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_BROWSER_INTEROP"
+status = "ZERO_BYTE_PLACEHOLDER"

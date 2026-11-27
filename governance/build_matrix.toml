@@ -1,0 +1,203 @@
+# SOV-TIME F02 build-matrix working record.
+# Tuple definition only. This file never mints build/test PASS evidence.
+
+schema_version = "0.1.0-draft.1"
+project_id = "SOV-TIME"
+candidate_state = "WORKING_PHASE_F_TUPLE_RECORD"
+source_binding_snapshot_id = "F02_SOURCE_BINDINGS_TARGET_2026_11_27"
+source_binding_candidate_sha256 = "e8b9d0c8dd55aed47d17821b2ea8a948ed82b2878b9b147be92274156a6464d7"
+component_manifest_snapshot_id = "F02_COMPONENT_MANIFEST_TARGET_2026_11_27"
+component_manifest_candidate_sha256 = "f45583c2ebb4b5b60f7256a0a56b9a547e4b091648b353bf2b9edf160e6bde7b"
+exact_toolchain_binding_id = "RUST_1_99_1_X86_64_UNKNOWN_LINUX_GNU"
+evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+required_tuple_ids = [
+  "HOST_CORE_DEFAULT",
+  "DOMAIN_FOUNDATION_TARGET",
+  "WEB_CLIENT_WASM",
+  "DOC_API",
+  "BROWSER_RUNTIME",
+]
+
+unresolved_items = [
+  "F03_F06_MEMBER_MANIFESTS_SERIALIZED_PENDING_COMPLETE_WORKSPACE_GRAPH_QUALIFICATION",
+  "F07_F08_MEMBER_MANIFESTS_REMAIN_BLOCKED_BY_RFW074_PRIMARY_PROFILE_RECOVERY",
+  "CARGO_LOCK_ABSENT",
+  "F07_FRAMEWORK_SELECTION_NOT_ADMITTED",
+  "F08_FINAL_WEB_FEATURE_TOPOLOGY_NOT_BOUND",
+  "TARGET_SPECIFIC_DEPENDENCY_GRAPHS_NOT_YET_RESOLVED",
+]
+
+[toolchain]
+channel = "1.99.1"
+host_target = "x86_64-unknown-linux-gnu"
+rustc_version = "1.99.1"
+rustc_commit = "58cf8f9c35b355199727627d07ae34a4e2846d67"
+cargo_version = "1.99.1"
+cargo_commit_short = "5f94df478"
+rustfmt_version = "1.10.0-stable"
+clippy_version = "0.1.99"
+installed_targets = ["x86_64-unknown-linux-gnu", "wasm32-unknown-unknown"]
+identity_evidence = "R14_DONE"
+
+[[tuple]]
+tuple_id = "HOST_CORE_DEFAULT"
+tuple_kind = "CARGO_BUILD_WORLD"
+subject_component_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_CONTRACTS", "SOV_TIME_APPLICATION"]
+source_tree_content_identity = "UNRESOLVED_MEMBER_SOURCE_AND_MANIFEST_SET"
+crate_and_target_kind = "WORKSPACE_HOST_LIBRARIES_AND_HOST_TEST_OVERLAY"
+target_specification = "x86_64-unknown-linux-gnu"
+rust_edition = "2024"
+compiler_and_sysroot_identity = "rustc-1.99.1@58cf8f9c35b355199727627d07ae34a4e2846d67:x86_64-unknown-linux-gnu"
+dependency_source_graph_identity = "UNRESOLVED_MEMBER_MANIFESTS_AND_LOCK"
+feature_set = ["DEFAULT_OR_EMPTY_PER_MEMBER_PENDING_F03_F05"]
+cfg_set = ["HOST_CFG_FROM_RUSTC_1_99_1_PENDING_CAPTURE_PER_EXECUTION"]
+panic_strategy = "UNRESOLVED_PER_PROFILE"
+optimization_profile = "DEV_TEST_CANDIDATE"
+lto_configuration = "UNRESOLVED_NOT_REQUIRED_FOR_INITIAL_HOST_CHECK"
+codegen_options = ["NO_CUSTOM_CODEGEN_OPTION_ADMITTED"]
+build_script_and_proc_macro_input_set = []
+native_input_set = []
+linker_and_linker_script_identity = "UNRESOLVED_HOST_DEFAULT"
+controlled_environment_identity = "PROJECT_BOUND_RUST_1_99_1_WITH_PROJECT_LOCAL_OUTPUT_CACHE_TEMP"
+required_check_ids = [
+  "FORMAT_CHECK",
+  "CARGO_CHECK",
+  "SELECTED_CLIPPY",
+  "UNIT_TEST",
+  "INTEGRATION_TEST_WHEN_PRESENT",
+]
+claim_scope = "HOST_COMPILATION_AND_HOST_TEST_PROPERTIES_ONLY"
+qualification_state = "UNRESOLVED"
+
+[[tuple]]
+tuple_id = "DOMAIN_FOUNDATION_TARGET"
+tuple_kind = "CARGO_BUILD_WORLD"
+subject_component_ids = ["SOV_TIME_DOMAIN"]
+source_tree_content_identity = "UNRESOLVED_DOMAIN_MANIFEST_STRUCTURE_AND_SOURCE"
+crate_and_target_kind = "LIBRARY_PRODUCTION_TARGET"
+target_specification = "wasm32-unknown-unknown"
+rust_edition = "2024"
+compiler_and_sysroot_identity = "rustc-1.99.1@58cf8f9c35b355199727627d07ae34a4e2846d67:wasm32-unknown-unknown"
+dependency_source_graph_identity = "UNRESOLVED_F03_MANIFEST_AND_CARGO_LOCK"
+feature_set = ["NO_STD_NO_ALLOC_PRODUCTION_CANDIDATE_PENDING_PROOF"]
+cfg_set = ["WASM32_UNKNOWN_UNKNOWN_CFG_PENDING_EXECUTION_CAPTURE"]
+panic_strategy = "TARGET_DEFAULT_OR_EXPLICIT_FUTURE_BINDING_PENDING_VERIFICATION"
+optimization_profile = "PRODUCTION_PROFILE_PENDING_F03_F09_F10"
+lto_configuration = "UNRESOLVED"
+codegen_options = ["NO_CUSTOM_STACK_ATOMICS_OR_UNWINDING_FLAG_ADMITTED"]
+build_script_and_proc_macro_input_set = []
+native_input_set = []
+linker_and_linker_script_identity = "TARGET_DEFAULT_PENDING_CAPTURE"
+controlled_environment_identity = "PROJECT_BOUND_RUST_1_99_1_WASM_TARGET_INSTALLED"
+required_check_ids = [
+  "TARGET_CARGO_CHECK",
+  "TARGET_CARGO_BUILD",
+  "DEPENDENCY_GRAPH_REACHABILITY",
+  "NO_STD_NO_ALLOC_NO_HEAP_EVIDENCE",
+  "STACK_AND_RESOURCE_ANALYSIS",
+]
+claim_scope = "DOMAIN_TARGET_PROPERTIES_ONLY; NO_BROWSER_OR_WCET_CLAIM"
+qualification_state = "UNRESOLVED"
+
+[[tuple]]
+tuple_id = "WEB_CLIENT_WASM"
+tuple_kind = "CARGO_BUILD_WORLD"
+subject_component_ids = [
+  "SOV_TIME_DOMAIN",
+  "SOV_TIME_CONTRACTS",
+  "SOV_TIME_APPLICATION",
+  "SOV_TIME_BROWSER_INTEROP",
+  "SOV_TIME_WEB_UI",
+  "SOV_TIME_WEB_ENTRY",
+]
+source_tree_content_identity = "UNRESOLVED_F03_F08_MANIFEST_AND_SOURCE_SET"
+crate_and_target_kind = "BROWSER_WASM_CLIENT_APPLICATION"
+target_specification = "wasm32-unknown-unknown"
+rust_edition = "2024"
+compiler_and_sysroot_identity = "rustc-1.99.1@58cf8f9c35b355199727627d07ae34a4e2846d67:wasm32-unknown-unknown"
+dependency_source_graph_identity = "UNRESOLVED_FRAMEWORK_AND_MEMBER_MANIFEST_GRAPH"
+feature_set = [
+  "CLIENT_WEB_FEATURE_TOPOLOGY_PENDING_F07_F08",
+  "DIOXUS_NOT_YET_ADMITTED",
+]
+cfg_set = ["WASM32_UNKNOWN_UNKNOWN_CFG_PENDING_EXECUTION_CAPTURE"]
+panic_strategy = "MUST_BE_EXPLICITLY_RECONCILED_UNDER_FULLSTACK_RFW020"
+optimization_profile = "WEB_PRODUCTION_PROFILE_PENDING_F08"
+lto_configuration = "UNRESOLVED"
+codegen_options = ["NO_CUSTOM_TARGET_FLAG_ADMITTED_WITHOUT_MATRIX_REVISION"]
+build_script_and_proc_macro_input_set = ["UNRESOLVED_FRAMEWORK_PROC_MACRO_CLOSURE"]
+native_input_set = []
+linker_and_linker_script_identity = "UNRESOLVED_WASM_LINK_WORLD"
+controlled_environment_identity = "PROJECT_BOUND_RUST_1_99_1_WASM_TARGET_INSTALLED"
+required_check_ids = [
+  "WEB_TARGET_METADATA_GRAPH",
+  "WEB_TARGET_CARGO_CHECK",
+  "WEB_TARGET_CARGO_BUILD",
+  "SELECTED_CLIPPY",
+  "FRAMEWORK_FEATURE_CLOSURE",
+  "NO_SERVER_PRIVILEGED_CAPABILITY_REACHABILITY",
+]
+claim_scope = "ACTUAL_CLIENT_PRODUCT_COMPILE_FEATURE_AND_DEPENDENCY_GRAPH"
+qualification_state = "UNRESOLVED"
+
+[[tuple]]
+tuple_id = "DOC_API"
+tuple_kind = "DOCUMENTATION_BUILD_WORLD"
+subject_component_ids = [
+  "SOV_TIME_DOMAIN",
+  "SOV_TIME_CONTRACTS",
+  "SOV_TIME_APPLICATION",
+  "SOV_TIME_BROWSER_INTEROP",
+  "SOV_TIME_WEB_UI",
+]
+source_tree_content_identity = "UNRESOLVED_PUBLIC_API_SOURCE_SET"
+crate_and_target_kind = "RUSTDOC_AND_DOCTEST"
+target_specification = "MATCH_QUALIFIED_HOST_OR_TARGET_TUPLE_AS_APPLICABLE"
+rust_edition = "2024"
+compiler_and_sysroot_identity = "RUSTDOC_1_99_1_PROJECT_BOUND"
+dependency_source_graph_identity = "UNRESOLVED_MEMBER_MANIFESTS_AND_LOCK"
+feature_set = ["MATCH_SUBJECT_TUPLE"]
+cfg_set = ["MATCH_SUBJECT_TUPLE"]
+panic_strategy = "NOT_A_SEPARATE_PANIC_CLAIM"
+optimization_profile = "DOCUMENTATION"
+lto_configuration = "NOT_APPLICABLE"
+codegen_options = []
+build_script_and_proc_macro_input_set = ["MATCH_SUBJECT_TUPLE"]
+native_input_set = ["MATCH_SUBJECT_TUPLE"]
+linker_and_linker_script_identity = "NOT_APPLICABLE_UNLESS_DOCTEST_LINK_REQUIRES"
+controlled_environment_identity = "PROJECT_BOUND_RUSTDOC_1_99_1"
+required_check_ids = ["RUSTDOC", "DOCTEST_WHEN_APPLICABLE", "PUBLIC_API_DOC_REVIEW"]
+claim_scope = "DOCUMENTATION_AND_PUBLIC_API_COMPILATION_ONLY"
+qualification_state = "UNRESOLVED"
+
+[[tuple]]
+tuple_id = "BROWSER_RUNTIME"
+tuple_kind = "RUNTIME_WORLD"
+subject_component_ids = ["SOV_TIME_BROWSER_INTEROP", "SOV_TIME_WEB_UI", "SOV_TIME_WEB_ENTRY"]
+source_tree_content_identity = "UNRESOLVED_GENERATED_WEB_ARTIFACT"
+crate_and_target_kind = "SUPPORTED_BROWSER_RUNTIME"
+target_specification = "BROWSER_MATRIX_PENDING_F08_W_PHASE"
+rust_edition = "NOT_APPLICABLE_RUNTIME_WORLD"
+compiler_and_sysroot_identity = "BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"
+dependency_source_graph_identity = "BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"
+feature_set = ["BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"]
+cfg_set = ["BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"]
+panic_strategy = "BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"
+optimization_profile = "BROWSER_RUNTIME"
+lto_configuration = "BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"
+codegen_options = ["BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"]
+build_script_and_proc_macro_input_set = ["BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"]
+native_input_set = []
+linker_and_linker_script_identity = "BOUND_TO_WEB_CLIENT_WASM_ARTIFACT"
+controlled_environment_identity = "SUPPORTED_BROWSER_MATRIX_PENDING"
+required_check_ids = [
+  "BROWSER_RENDER",
+  "BROWSER_INPUT",
+  "BROWSER_IMPORT_EXPORT",
+  "BROWSER_ROUTING",
+  "BROWSER_FAILURE_PATHS",
+]
+claim_scope = "BROWSER_BEHAVIOR_ONLY; NOT_CARGO_OR_HARDWARE_TIMING_PROOF"
+qualification_state = "UNRESOLVED"

@@ -1,0 +1,185 @@
+# SOV-TIME F02 component-manifest working record.
+# Architecture traceability only; no source admission or build PASS effect.
+
+schema_version = "0.1.0-draft.1"
+project_id = "SOV-TIME"
+candidate_state = "WORKING_PHASE_F_ARCHITECTURE_RECORD"
+architecture_revision_id = "F01_TARGET_2026_11_27"
+architecture_candidate_sha256 = "ffcd9362cedc3ddaf9e8d40b036532b41838e47b937e21df439ca843df51c467"
+design_candidate_sha256 = "501f6403326e2072029728d72a4d555276b7332a54b2828307a9757536f0df7b"
+source_binding_snapshot_id = "F02_SOURCE_BINDINGS_TARGET_2026_11_27"
+source_binding_candidate_sha256 = "e8b9d0c8dd55aed47d17821b2ea8a948ed82b2878b9b147be92274156a6464d7"
+evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+unresolved_items = [
+  "F07_F08_STRUCTURE_RECORDS_REMAIN_BLOCKED_PENDING_RFW074_PRIMARY_PROFILE_RECOVERY",
+  "RFW074_ZERO_PRIMARY_PROFILE_RECOVERY_REQUIRED_BEFORE_FRAMEWORK_OR_IMPLEMENTATION_COMMITMENT",
+  "FRAMEWORK_ADMISSION_REMAINS_F07",
+  "BROWSER_INTEROP_EXTERNAL_DEPENDENCIES_REMAIN_UNADMITTED_PENDING_API_CODEC_RESOURCE_REVIEW",
+]
+
+[[component]]
+component_id = "SOV_TIME_DOMAIN"
+canonical_project_relative_path = "crates/domain"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+profile_references = ["ROOT_RUST_PROFILE_A_CANDIDATE", "FULLSTACK_WASM_1_0_1_SPECIALIZED_CLASS_CONTEXT_WHEN_RFW070_APPLIES"]
+build_world_ids = ["DOMAIN_FOUNDATION_TARGET", "HOST_TEST"]
+allowed_project_dependency_ids = []
+prohibited_dependency_ids = [
+  "SOV_TIME_CONTRACTS",
+  "SOV_TIME_APPLICATION",
+  "SOV_TIME_BROWSER_INTEROP",
+  "SOV_TIME_WEB_UI",
+  "SOV_TIME_WEB_ENTRY",
+]
+prohibited_capability_set = [
+  "BROWSER_API",
+  "DOM",
+  "JAVASCRIPT_INTEROP",
+  "FILESYSTEM_EFFECT",
+  "NETWORK_EFFECT",
+  "ENVIRONMENT_EFFECT",
+  "WALL_CLOCK_EFFECT",
+  "RANDOMNESS_EFFECT",
+  "TELEMETRY",
+  "PERSISTENCE",
+  "UI_FRAMEWORK",
+]
+trust_boundary_summary = "PURE_EXPLICIT_INPUT_DOMAIN_BOUNDARY"
+structure_record_path = "crates/domain/structure.toml"
+verification_binding_ids = ["VERIFY_DOMAIN_GRAPH", "VERIFY_DOMAIN_TARGET", "VERIFY_DOMAIN_NO_HEAP"]
+
+[[component]]
+component_id = "SOV_TIME_CONTRACTS"
+canonical_project_relative_path = "crates/contracts"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+profile_references = ["ROOT_RUST_HOSTED_OR_SHARED_CONTRACT_CONTEXT", "FULLSTACK_WASM_1_0_1_SPECIALIZED_CLASS_CONTEXT_WHEN_RFW070_APPLIES"]
+build_world_ids = ["HOST_CORE_DEFAULT", "HOST_TEST", "WEB_CLIENT_WASM"]
+allowed_project_dependency_ids = []
+prohibited_dependency_ids = [
+  "SOV_TIME_DOMAIN",
+  "SOV_TIME_APPLICATION",
+  "SOV_TIME_BROWSER_INTEROP",
+  "SOV_TIME_WEB_UI",
+  "SOV_TIME_WEB_ENTRY",
+]
+prohibited_capability_set = [
+  "SCHEDULING_ALGORITHM_OWNERSHIP",
+  "DOMAIN_THEOREM_OWNERSHIP",
+  "BROWSER_HANDLE_OWNERSHIP",
+  "UI_FRAMEWORK_TYPE_OWNERSHIP",
+]
+trust_boundary_summary = "UNTRUSTED_EXTERNAL_REPRESENTATION_TO_VALIDATED_BOUNDED_CONTRACT"
+structure_record_path = "crates/contracts/structure.toml"
+verification_binding_ids = ["VERIFY_CONTRACT_BOUNDS", "VERIFY_CONTRACT_VERSIONING"]
+
+[[component]]
+component_id = "SOV_TIME_APPLICATION"
+canonical_project_relative_path = "crates/application"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+profile_references = ["ROOT_RUST_HOSTED_APPLICATION_CONTEXT", "FULLSTACK_WASM_1_0_1_SPECIALIZED_CLASS_CONTEXT_WHEN_RFW070_APPLIES"]
+build_world_ids = ["HOST_CORE_DEFAULT", "HOST_TEST", "WEB_CLIENT_WASM"]
+allowed_project_dependency_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_CONTRACTS"]
+prohibited_dependency_ids = ["SOV_TIME_BROWSER_INTEROP", "SOV_TIME_WEB_UI", "SOV_TIME_WEB_ENTRY"]
+prohibited_capability_set = [
+  "DOM",
+  "JAVASCRIPT_INTEROP",
+  "UI_FRAMEWORK_TYPE_OWNERSHIP",
+  "DATABASE_VENDOR_OWNERSHIP",
+  "BROWSER_STORAGE_OWNERSHIP",
+]
+trust_boundary_summary = "VALIDATED_CONTRACT_TO_DOMAIN_CONVERSION_AND_USE_CASE_ORCHESTRATION"
+structure_record_path = "crates/application/structure.toml"
+verification_binding_ids = ["VERIFY_APPLICATION_CONVERSION", "VERIFY_APPLICATION_NO_FRAMEWORK_LEAK"]
+
+[[component]]
+component_id = "SOV_TIME_BROWSER_INTEROP"
+canonical_project_relative_path = "crates/browser_interop"
+semantic_owner = "TYPED_BROWSER_INTEROP"
+profile_references = ["ROOT_RUST_HOSTED_CONTEXT", "FULLSTACK_WASM_1_0_1"]
+build_world_ids = ["WEB_CLIENT_WASM", "BROWSER_RUNTIME"]
+allowed_project_dependency_ids = ["SOV_TIME_CONTRACTS"]
+prohibited_dependency_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_APPLICATION", "SOV_TIME_WEB_UI", "SOV_TIME_WEB_ENTRY"]
+prohibited_capability_set = [
+  "SCHEDULING_ALGORITHM_OWNERSHIP",
+  "DOMAIN_INVARIANT_OWNERSHIP",
+  "UI_RENDERING_POLICY_OWNERSHIP",
+]
+trust_boundary_summary = "UNTRUSTED_BROWSER_EFFECTS_TO_VALIDATED_CONTRACT_BOUNDARY"
+structure_record_path = "crates/browser_interop/structure.toml"
+verification_binding_ids = ["VERIFY_BROWSER_EFFECT_BOUNDARY", "VERIFY_BROWSER_CONTRACT_TRANSLATION"]
+
+[[component]]
+component_id = "SOV_TIME_WEB_UI"
+canonical_project_relative_path = "crates/web_ui"
+semantic_owner = "CLIENT_RENDERING_ROUTING_STATE"
+profile_references = ["ROOT_RUST_HOSTED_CONTEXT", "FULLSTACK_WASM_1_0_1"]
+build_world_ids = ["WEB_CLIENT_WASM", "BROWSER_RUNTIME"]
+allowed_project_dependency_ids = ["SOV_TIME_APPLICATION", "SOV_TIME_CONTRACTS", "SOV_TIME_BROWSER_INTEROP"]
+prohibited_dependency_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_WEB_ENTRY"]
+prohibited_capability_set = [
+  "DOMAIN_ALGORITHM_OWNERSHIP",
+  "SERVER_SECURITY_SOURCE_OF_TRUTH",
+  "DATABASE_AUTHORITY",
+]
+trust_boundary_summary = "TYPED_APPLICATION_RESULTS_TO_USER_PRESENTATION_AND_INTERACTION"
+structure_record_path = "crates/web_ui/structure.toml"
+verification_binding_ids = ["VERIFY_UI_FRAMEWORK_BOUNDARY", "VERIFY_UI_OUTCOME_DISTINCTION", "VERIFY_UI_ROUTING"]
+
+[[component]]
+component_id = "SOV_TIME_WEB_ENTRY"
+canonical_project_relative_path = "apps/web"
+semantic_owner = "APPLICATION_ENTRY_COMPOSITION"
+profile_references = ["ROOT_RUST_HOSTED_CONTEXT", "FULLSTACK_WASM_1_0_1"]
+build_world_ids = ["WEB_CLIENT_WASM", "BROWSER_RUNTIME"]
+allowed_project_dependency_ids = ["SOV_TIME_WEB_UI"]
+prohibited_dependency_ids = [
+  "SOV_TIME_DOMAIN",
+  "SOV_TIME_CONTRACTS",
+  "SOV_TIME_APPLICATION",
+  "SOV_TIME_BROWSER_INTEROP",
+]
+prohibited_capability_set = [
+  "BUSINESS_LOGIC_OWNERSHIP",
+  "DOMAIN_ALGORITHM_OWNERSHIP",
+  "SERVER_AUTHORITY",
+]
+trust_boundary_summary = "THIN_BROWSER_APPLICATION_COMPOSITION_AND_LAUNCH"
+structure_record_path = "apps/web/structure.toml"
+verification_binding_ids = ["VERIFY_ENTRY_THINNESS", "VERIFY_ENTRY_DEPENDENCY_DIRECTION"]
+
+[[dependency_edge]]
+from_component = "SOV_TIME_APPLICATION"
+to_dependency = "SOV_TIME_DOMAIN"
+reason = "APPLICATION_CONSUMES_DOMAIN_SEMANTICS"
+
+[[dependency_edge]]
+from_component = "SOV_TIME_APPLICATION"
+to_dependency = "SOV_TIME_CONTRACTS"
+reason = "APPLICATION_CONSUMES_VALIDATED_CONTRACTS"
+
+[[dependency_edge]]
+from_component = "SOV_TIME_BROWSER_INTEROP"
+to_dependency = "SOV_TIME_CONTRACTS"
+reason = "BROWSER_EFFECTS_TRANSLATE_TO_FROM_VALIDATED_CONTRACTS"
+
+[[dependency_edge]]
+from_component = "SOV_TIME_WEB_UI"
+to_dependency = "SOV_TIME_APPLICATION"
+reason = "UI_INVOKES_APPLICATION_USE_CASES"
+
+[[dependency_edge]]
+from_component = "SOV_TIME_WEB_UI"
+to_dependency = "SOV_TIME_CONTRACTS"
+reason = "UI_MAY_RENDER_OR_EXPORT_BOUNDED_CONTRACT_DATA"
+
+[[dependency_edge]]
+from_component = "SOV_TIME_WEB_UI"
+to_dependency = "SOV_TIME_BROWSER_INTEROP"
+reason = "UI_REQUESTS_BROWSER_EFFECTS_THROUGH_TYPED_ADAPTER"
+
+[[dependency_edge]]
+from_component = "SOV_TIME_WEB_ENTRY"
+to_dependency = "SOV_TIME_WEB_UI"
+reason = "ENTRY_COMPOSES_AND_LAUNCHES_UI"

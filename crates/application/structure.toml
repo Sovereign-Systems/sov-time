@@ -1,0 +1,102 @@
+# SOV-TIME F04 application structure working record.
+
+schema_version = "0.1.0-draft.1"
+project_id = "SOV-TIME"
+crate_id = "SOV_TIME_APPLICATION"
+package_name = "sov-time-application"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+candidate_state = "WORKING_PHASE_F_TOPOLOGY"
+evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+allowed_project_dependency_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_CONTRACTS"]
+prohibited_dependency_ids = ["SOV_TIME_BROWSER_INTEROP", "SOV_TIME_WEB_UI", "SOV_TIME_WEB_ENTRY"]
+prohibited_capabilities = ["BROWSER_API", "DOM", "JAVASCRIPT_INTEROP", "UI_FRAMEWORK_TYPES", "DATABASE_VENDOR_DETAILS"]
+
+unresolved_items = [
+  "FULLSTACK_ZERO_PRIMARY_PROFILE_BLOCKS_IMPLEMENTATION_COMMITMENT",
+]
+
+[[unit]]
+path = "src/lib.rs"
+file_id = "application.root"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "CRATE_ROOT_LIBRARY"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Compose the application crate and expose only consumer-required use-case interfaces."
+
+[[unit]]
+path = "src/error.rs"
+file_id = "application.error"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Represent narrow application-owned orchestration and mapping failures without erasing lower-layer causes."
+
+[[unit]]
+path = "src/result.rs"
+file_id = "application.result"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Represent deterministic application result rows and preserved analysis/simulation outcome bindings."
+
+[[unit]]
+path = "src/scenario.rs"
+file_id = "application.scenario"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Represent one validated application scenario binding contracts to domain values without browser/framework ownership."
+classification_condition = "RECHECK_IF_ACTUAL_CONTENT_ACQUIRES_INDEPENDENT_ORCHESTRATION_BEHAVIOR"
+
+[[unit]]
+path = "src/configuration.rs"
+file_id = "application.configuration"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Represent bounded application analysis/simulation configuration values."
+classification_condition = "RECHECK_IF_ACTUAL_CONTENT_ACQUIRES_INDEPENDENT_ORCHESTRATION_BEHAVIOR"
+
+[[unit]]
+path = "src/execution.rs"
+file_id = "application.execution"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_APPLICATION_MODULE"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Own deterministic use-case execution across validated contracts and domain operations."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/comparison.rs"
+file_id = "application.comparison"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_APPLICATION_MODULE"
+semantic_owner = "USE_CASE_ORCHESTRATION"
+purpose = "Own deterministic policy-comparison orchestration without outcome ranking or semantic collapse."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[test_unit]]
+path = "tests/integration_tests.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_APPLICATION"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/integration_tests/scenario.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_APPLICATION"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/integration_tests/comparison.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_APPLICATION"
+status = "ZERO_BYTE_PLACEHOLDER"

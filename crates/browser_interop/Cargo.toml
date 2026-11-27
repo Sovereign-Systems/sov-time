@@ -1,0 +1,24 @@
+# SOV-TIME F06 browser-interop Cargo manifest.
+# External browser dependencies remain intentionally unadmitted pending exact adapter API review.
+
+[package]
+name = "sov-time-browser-interop"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+default = []
+web = []
+
+[dependencies]
+sov-time-contracts.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,90 @@
+# SOV-TIME F05 contracts structure working record.
+
+schema_version = "0.1.0-draft.1"
+project_id = "SOV-TIME"
+crate_id = "SOV_TIME_CONTRACTS"
+package_name = "sov-time-contracts"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+candidate_state = "WORKING_PHASE_F_TOPOLOGY"
+evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+allowed_project_dependency_ids = []
+prohibited_dependency_ids = ["SOV_TIME_DOMAIN", "SOV_TIME_APPLICATION", "SOV_TIME_BROWSER_INTEROP", "SOV_TIME_WEB_UI", "SOV_TIME_WEB_ENTRY"]
+prohibited_capabilities = ["DOMAIN_THEOREM_OWNERSHIP", "SCHEDULER_STATE", "BROWSER_HANDLE", "UI_FRAMEWORK_TYPES", "SECRET_HOST_HANDLE"]
+simulation_deadline_miss_policy = "TERMINATE_ON_FIRST_MISS"
+
+unresolved_items = [
+  "RFW074_ZERO_PRIMARY_PROFILE_BLOCKS_IMPLEMENTATION_COMMITMENT",
+  "SERIALIZATION_CODEC_AND_EXTERNAL_DEPENDENCIES_UNSELECTED",
+  "EXACT_TIME_UNIT_ENUM_UNRESOLVED",
+]
+
+[[unit]]
+path = "src/lib.rs"
+file_id = "contracts.root"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "CRATE_ROOT_LIBRARY"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+purpose = "Compose versioned bounded contract types without owning domain invariants or codec implementation."
+
+[[unit]]
+path = "src/error.rs"
+file_id = "contracts.error"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+purpose = "Represent narrow contract/schema/version validation failures without string or generic-error collapse."
+
+[[unit]]
+path = "src/version.rs"
+file_id = "contracts.version"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "SHARED_WIRE_CONTRACT_MODULE"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+purpose = "Represent supported semantic contract/schema version identity and compatibility rules."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/scenario.rs"
+file_id = "contracts.scenario"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "SHARED_WIRE_CONTRACT_MODULE"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+purpose = "Represent the versioned bounded external scenario semantic contract independently of codec."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/report.rs"
+file_id = "contracts.report"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "SHARED_WIRE_CONTRACT_MODULE"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+purpose = "Represent the versioned bounded external analysis/simulation report contract while preserving outcome semantics."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/validation.rs"
+file_id = "contracts.validation"
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "SHARED_WIRE_CONTRACT_MODULE"
+semantic_owner = "VERSIONED_BOUNDED_CONTRACT_TYPES"
+purpose = "Own bounded contract-level schema/version/semantic validation before domain conversion."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[test_unit]]
+path = "tests/integration_tests.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_CONTRACTS"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/integration_tests/compatibility.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_CONTRACTS"
+status = "ZERO_BYTE_PLACEHOLDER"

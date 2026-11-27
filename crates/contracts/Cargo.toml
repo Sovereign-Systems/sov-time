@@ -1,0 +1,20 @@
+# SOV-TIME F05 contracts Cargo manifest.
+
+[package]
+name = "sov-time-contracts"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+# No codec or serialization dependency is admitted before the semantic schema,
+# byte/resource bounds, exact representation, and dependency graph are reviewed.
+
+[lints]
+workspace = true

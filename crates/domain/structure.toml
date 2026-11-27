@@ -1,0 +1,507 @@
+# SOV-TIME F03 domain structure working record.
+# This record does not claim source-class validator PASS, Cargo graph PASS, or no-heap proof.
+
+schema_version = "0.1.0-draft.1"
+project_id = "SOV-TIME"
+crate_id = "SOV_TIME_DOMAIN"
+package_name = "sov-time-domain"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+candidate_state = "WORKING_PHASE_F_TOPOLOGY"
+evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+cargo_candidate_sha256 = "756e81a8e5f6894e33259a4b92413636c133f8d1eced1ac8353248679f916c24"
+source_binding_candidate_sha256 = "e8b9d0c8dd55aed47d17821b2ea8a948ed82b2878b9b147be92274156a6464d7"
+component_manifest_candidate_sha256 = "f45583c2ebb4b5b60f7256a0a56b9a547e4b091648b353bf2b9edf160e6bde7b"
+build_matrix_candidate_sha256 = "705c3f62fdda1232ab23468b167c4324a4a0922097f46f603d7e55d243be46a5"
+
+profile_target = "ROOT_RUST_PROFILE_A_CANDIDATE"
+production_effect_target = "NO_STD_NO_ALLOC_NO_HEAP_NO_GLOBAL_ALLOCATOR_NO_TRANSITIVE_STD_OR_ALLOC"
+production_effect_target_state = "UNPROVEN_UNTIL_EXACT_GRAPH_TARGET_AND_IMAGE_EVIDENCE"
+
+unresolved_items = [
+  "FULLSTACK_ZERO_PRIMARY_PROFILE_STILL_BLOCKS_IMPLEMENTATION_COMMITMENT",
+  "F09_NUMERIC_CAPACITY_MEMORY_AND_ERROR_CONTRACTS_NOT_YET_SERIALIZED",
+  "F10_INVARIANT_AND_VERIFICATION_RECORDS_NOT_YET_SERIALIZED",
+]
+
+# disposition meanings:
+# KEEP_AND_IMPLEMENT_LATER = topology retained, but source remains zero-byte until its D task.
+# DELETE_CANDIDATE = zero-byte scaffold has no justified semantic owner; deletion requires its own verified D task.
+# PLANNED_NEW_UNIT = absent today; creation requires its own preflight.
+# PLANNED_SPECIALIZED_CLASS = semantic owner and specialized class candidate are known, but final classification waits for actual syntax/effects, source-binding reconciliation, and lawful implementation admission.
+
+[[unit]]
+path = "src/lib.rs"
+file_id = "domain.root"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "CRATE_ROOT_LIBRARY"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose the domain crate policy, owned modules, and deliberate minimal public facade."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/error.rs"
+file_id = "domain.error"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent typed domain failures without erasing material causes."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/limits.rs"
+file_id = "domain.limits"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent finite validated limits that bound supported domain work."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/time.rs"
+file_id = "domain.time"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "MODULE_FACADE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose and explicitly reexport scheduling-time primitives."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/time/error.rs"
+file_id = "domain.time.error"
+exists_now = false
+current_sha256 = "ABSENT"
+disposition = "PLANNED_NEW_UNIT"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent typed checked time-arithmetic failures."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_BEFORE_AND_AFTER_CREATION"
+
+[[unit]]
+path = "src/time/instant.rs"
+file_id = "domain.time.instant"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent an abstract scheduling instant in integral ticks."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/time/duration.rs"
+file_id = "domain.time.duration"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent an abstract scheduling duration in integral ticks."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/task.rs"
+file_id = "domain.task"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "MODULE_FACADE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose and reexport validated task-domain modules."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/task/identity.rs"
+file_id = "domain.task.identity"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent stable task identity and deterministic tie-break identity."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/task/deadline.rs"
+file_id = "domain.task.deadline"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent one strictly positive relative deadline."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/task/parameters.rs"
+file_id = "domain.task.parameters"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent one immutable validated periodic constrained-deadline task tuple."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/task/task_set.rs"
+file_id = "domain.task.set"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent a bounded borrowed immutable validated task-set view."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/task/priority.rs"
+file_id = "domain.task.priority"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "DELETE_CANDIDATE"
+candidate_primary_class = "NONE"
+semantic_owner = "NONE"
+purpose = "No independent responsibility; fixed-priority order is derived from task parameters and task identity."
+classification_state = "DELETION_REQUIRES_REFERENCE_CLOSURE_PROOF"
+
+[[unit]]
+path = "src/resource.rs"
+file_id = "domain.resource"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "MODULE_FACADE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose bounded resource-state modules."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/resource/capacity.rs"
+file_id = "domain.resource.capacity"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "STATE_MACHINE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded capacity acquire and release transition semantics."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/resource/budget.rs"
+file_id = "domain.resource.budget"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "STATE_MACHINE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own monotonic remaining-work budget consumption state."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/validation.rs"
+file_id = "domain.validation"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "DELETE_CANDIDATE"
+candidate_primary_class = "NONE"
+semantic_owner = "NONE"
+purpose = "No standalone responsibility after owner-bound domain validation."
+classification_state = "DELETION_REQUIRES_REFERENCE_CLOSURE_PROOF"
+
+[[unit]]
+path = "src/scheduler.rs"
+file_id = "domain.scheduler"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "MODULE_FACADE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose scheduling-policy and scheduling-algorithm modules."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/scheduler/policy.rs"
+file_id = "domain.scheduler.policy"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent scheduling-policy identity and ordering vocabulary without owning selection algorithms."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/scheduler/ready_queue.rs"
+file_id = "domain.scheduler.ready_queue"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "DELETE_CANDIDATE"
+candidate_primary_class = "NONE"
+semantic_owner = "NONE"
+purpose = "No independent queue state; active-job membership is owned by simulation state."
+classification_state = "DELETION_REQUIRES_REFERENCE_CLOSURE_PROOF"
+
+[[unit]]
+path = "src/scheduler/edf.rs"
+file_id = "domain.scheduler.edf"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_DOMAIN_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded deterministic EDF selection semantics."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/scheduler/rate_monotonic.rs"
+file_id = "domain.scheduler.rate_monotonic"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_DOMAIN_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded deterministic rate-monotonic selection semantics."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/scheduler/deadline_monotonic.rs"
+file_id = "domain.scheduler.deadline_monotonic"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_DOMAIN_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded deterministic deadline-monotonic selection semantics."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/analysis.rs"
+file_id = "domain.analysis"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "MODULE_FACADE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose schedulability-analysis values and algorithms."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/analysis/utilization.rs"
+file_id = "domain.analysis.utilization"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own an exact utilization value and value-inherent checked rational accumulation."
+classification_state = "CONDITIONAL_ON_ALGORITHMIC_WORK_REMAINING_INHERENT_TO_VALUE_SEMANTICS"
+
+[[unit]]
+path = "src/analysis/outcome.rs"
+file_id = "domain.analysis.outcome"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent typed schedulability outcomes and bounded witnesses."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/analysis/response_time.rs"
+file_id = "domain.analysis.response_time"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_DOMAIN_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded checked fixed-priority response-time analysis."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/analysis/demand_bound.rs"
+file_id = "domain.analysis.demand_bound"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_DOMAIN_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded checked EDF demand-bound analysis."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/analysis/schedulability.rs"
+file_id = "domain.analysis.schedulability"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "PLANNED_SPECIALIZED_CLASS"
+candidate_primary_class = "FULLSTACK_DOMAIN_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own applicability-preserving schedulability-analysis dispatch."
+classification_state = "PLANNED_BY_SPECIALIZED_DESCRIPTOR; FINAL_CLASS_REQUIRES_ACTUAL_SYNTAX_EFFECT_REVIEW_AND_RECONCILED_FULLSTACK_SOURCE_BINDING; IMPLEMENTATION_REMAINS_BLOCKED_BY_ZERO_PRIMARY_PROFILE"
+
+[[unit]]
+path = "src/simulation.rs"
+file_id = "domain.simulation"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "MODULE_FACADE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Compose deterministic bounded simulation modules."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/simulation/job.rs"
+file_id = "domain.simulation.job"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "STATE_MACHINE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own released-job execution and deadline transition semantics."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/simulation/event.rs"
+file_id = "domain.simulation.event"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent deterministic bounded simulation events and ordering values."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/simulation/state.rs"
+file_id = "domain.simulation.state"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "STATE_MACHINE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own active-job membership and simulation-state transitions."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/simulation/termination.rs"
+file_id = "domain.simulation.termination"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "VALUE_TYPE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Represent explicit finite simulation termination and coverage bounds."
+classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+
+[[unit]]
+path = "src/simulation/timeline.rs"
+file_id = "domain.simulation.timeline"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "STATE_MACHINE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own bounded caller-provided timeline writing and trace-segment transitions."
+classification_state = "PLANNED_CLASS_RECHECK_AGAINST_ACTUAL_TRANSITION_OWNERSHIP"
+
+[[unit]]
+path = "src/simulation/engine.rs"
+file_id = "domain.simulation.engine"
+exists_now = true
+current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+disposition = "KEEP_AND_IMPLEMENT_LATER"
+candidate_primary_class = "STATE_MACHINE_MODULE"
+semantic_owner = "PURE_DOMAIN_SEMANTICS"
+purpose = "Own the finite deterministic simulation orchestration transition loop."
+classification_state = "PLANNED_CLASS_RECHECK_AGAINST_ACTUAL_TRANSITION_OWNERSHIP"
+
+# Test roots are host evidence overlays and do not weaken production domain constraints.
+
+[[test_unit]]
+path = "tests/integration_tests.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_unit]]
+path = "tests/property_tests.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_unit]]
+path = "tests/compile_fail.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_unit]]
+path = "tests/regression_tests.rs"
+candidate_primary_class = "INTEGRATION_TEST_ROOT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/integration_tests/scheduling.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/integration_tests/analysis.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/integration_tests/simulation.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/property_tests/determinism.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/property_tests/invariants.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/property_tests/bounded_resources.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/compile_fail/invalid_task.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/regression_tests/arithmetic.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
+
+[[test_support]]
+path = "tests/regression_tests/deadline_boundary.rs"
+candidate_primary_class = "TEST_SUPPORT"
+production_subject = "SOV_TIME_DOMAIN"
+status = "ZERO_BYTE_PLACEHOLDER"
