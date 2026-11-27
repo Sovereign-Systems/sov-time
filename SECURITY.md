@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.1
+@version 0.1.0-draft.2
 @description Security reporting, trust boundaries, and supported-release policy.
 -->
 
@@ -19,9 +19,9 @@ A useful report identifies the affected revision, target, configuration, expecte
 
 ## Security boundaries
 
-The planned domain engine treats externally supplied task parameters and scenarios as untrusted. Input validation, arithmetic failure, capacity exhaustion, analysis termination, and deterministic error reporting are explicit design requirements.
+The implemented domain foundation uses explicit validated values, checked arithmetic, typed failures, and bounded resource-accounting primitives. Future externally supplied task parameters and scenarios remain untrusted inputs; their validation, capacity, analysis-termination, and deterministic failure requirements must be enforced before those higher-level workflows are advertised as implemented.
 
-Browser-specific effects belong outside the allocation-free foundation. Imported data must be validated before it reaches domain computations. Browser storage, file import, and export are separate trust boundaries.
+Browser-specific effects belong outside the strict domain foundation. Imported data must be validated before it reaches domain computations. Browser storage, file import, and export are separate trust boundaries. No source-text statement in this policy establishes a global no-heap, WCET, or target-security guarantee.
 
 ## Assurance limitations
 
