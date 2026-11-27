@@ -1,0 +1,9 @@
+/.local/
+/target/
+**/target/
+**/fuzz/artifacts/
+/governance/source_bindings.toml
+.env
+.env.*
+*.swp
+*~

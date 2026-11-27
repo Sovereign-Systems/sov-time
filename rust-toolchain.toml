@@ -1,0 +1,6 @@
+# @version 0.1.0-draft.1
+# @description Exact Rust release selection for the SOV-TIME workspace.
+# Component and target provisioning remains separate pending verification.
+
+[toolchain]
+channel = "1.99.1"

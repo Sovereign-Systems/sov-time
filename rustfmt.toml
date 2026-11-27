@@ -1,0 +1,7 @@
+# @version 0.1.0-draft.1
+# @description Workspace Rust parsing and formatting edition policy.
+# Keep direct rustfmt and Cargo-driven formatting on the same edition.
+# Reference: https://doc.rust-lang.org/edition-guide/rust-2024/rustfmt-style-edition.html
+
+edition = "2024"
+style_edition = "2024"

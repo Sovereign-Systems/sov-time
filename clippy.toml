@@ -1,0 +1,11 @@
+# @version 0.1.0-draft.1
+# @description Clippy configuration without unwrap or expect exemptions.
+# These options do not enable lints; effective lint levels and semantic
+# verification must be established separately before conformance is claimed.
+# Reference: https://doc.rust-lang.org/clippy/lint_configuration.html
+
+allow-unwrap-in-tests = false
+allow-expect-in-tests = false
+allow-unwrap-in-consts = false
+allow-expect-in-consts = false
+allow-unwrap-types = []
