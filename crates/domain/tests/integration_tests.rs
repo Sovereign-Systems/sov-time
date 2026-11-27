@@ -1,8 +1,8 @@
 // sovereign-rust/v1 {"id":"domain.tests.integration","purpose":"Verify public domain foundation behavior against bound v0.1 contracts."}
 
 use sov_time_domain::{
-    Budget, BudgetError, CapacityError, CapacityState, Duration, Instant, Limit, LimitError,
-    TimeArithmeticError,
+    Budget, BudgetError, CapacityError, CapacityState, DeadlineError, Duration, Instant, Limit,
+    LimitError, RelativeDeadline, TimeArithmeticError,
 };
 
 #[test]
@@ -236,5 +236,35 @@ fn identical_budget_sequences_are_deterministic() {
         assert!(second.try_consume_one().is_ok());
         assert!(first.remaining() == second.remaining());
         assert!(first.remaining() == 1);
+    }
+}
+
+#[test]
+fn relative_deadline_rejects_zero_duration() {
+    let result = RelativeDeadline::new(Duration::ZERO);
+    assert!(matches!(result, Err(DeadlineError::Zero)));
+}
+
+#[test]
+fn relative_deadline_accepts_one_tick() {
+    let result = RelativeDeadline::new(Duration::from_ticks(1));
+    assert!(matches!(result, Ok(value) if value.duration().ticks() == 1));
+}
+
+#[test]
+fn relative_deadline_accepts_maximum_tick_value() {
+    let result = RelativeDeadline::new(Duration::from_ticks(u64::MAX));
+    assert!(matches!(result, Ok(value) if value.duration().ticks() == u64::MAX));
+}
+
+#[test]
+fn relative_deadline_order_matches_contained_duration() {
+    let first = RelativeDeadline::new(Duration::from_ticks(1));
+    let second = RelativeDeadline::new(Duration::from_ticks(2));
+
+    assert!(first.is_ok());
+    assert!(second.is_ok());
+    if let (Ok(first), Ok(second)) = (first, second) {
+        assert!(first < second);
     }
 }

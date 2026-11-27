@@ -32,7 +32,7 @@ unresolved_items = [
 path = "src/lib.rs"
 file_id = "domain.root"
 exists_now = true
-current_sha256 = "6d1e7d06587eb0d8b6dbbeda1ea8074a5550f4beabb26a840e0c465d9936e6e5"
+current_sha256 = "f91c91eaed6270bb67adc723f6b6880e0c5842cd6889f69e9432a058b82f1c5f"
 disposition = "IMPLEMENTED_PENDING_FINAL_QUALIFICATION"
 candidate_primary_class = "CRATE_ROOT_LIBRARY"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
@@ -109,12 +109,12 @@ classification_state = "IMPLEMENTED_D02_VALUE_TYPE_RECHECK_PASS; EXACT_U64_TICKS
 path = "src/task.rs"
 file_id = "domain.task"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "6ab81a6b464e26ec4f608def6f9c0afe59c1020d7b690d9ccc8ec24980093fb5"
+disposition = "PARTIALLY_IMPLEMENTED_D03A"
 candidate_primary_class = "MODULE_FACADE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Compose and reexport validated task-domain modules."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "D03A_DEADLINE_CHILD_ONLY; FACADE_RECHECK_PASS; HOST_FMT_CHECK_BUILD_CLIPPY_PASS; DIRECT_HOST_TEST_EXECUTION_PASS; DIRECT_WASM32_COMPILE_AND_IR_SCAN_PASS; IDENTITY_AND_PARAMETERS_TASK_SET_NOT_YET_DECLARED"
 
 [[unit]]
 path = "src/task/identity.rs"
@@ -131,12 +131,12 @@ classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
 path = "src/task/deadline.rs"
 file_id = "domain.task.deadline"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "f1d6c83cac8daade0f5e682dcb83cb775b1154c732b6cafdc2266b38897e3473"
+disposition = "IMPLEMENTED_PENDING_QUALIFICATION"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent one strictly positive relative deadline."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "D03A_VALUE_TYPE_RECHECK_PASS; ZERO_REJECTION_1_MAX_ORDER_TESTS_PASS; HOST_FMT_CHECK_BUILD_CLIPPY_PASS; DIRECT_WASM32_COMPILE_AND_IR_SCAN_PASS"
 
 [[unit]]
 path = "src/task/parameters.rs"
@@ -430,7 +430,7 @@ classification_state = "PLANNED_CLASS_RECHECK_AGAINST_ACTUAL_TRANSITION_OWNERSHI
 path = "tests/integration_tests.rs"
 candidate_primary_class = "INTEGRATION_TEST_ROOT"
 production_subject = "SOV_TIME_DOMAIN"
-status = "IMPLEMENTED_D01_D02_D05; DIRECT_TEST_BINARY_COMPILE_AND_EXECUTION_PASS; HOST_CHECK_BUILD_CLIPPY_PASS; BYTE_IDENTICAL_WASM32_COMPILE_PASS; LIMIT_TIME_CAPACITY_BUDGET_BOUNDARY_BEHAVIOR_COVERED"
+status = "IMPLEMENTED_D01_D02_D05_PLUS_D03A; D03A_RED_PASS; D03A_GREEN_HOST_FMT_CHECK_BUILD_CLIPPY_PASS; DIRECT_TEST_EXECUTION_PASS; DIRECT_WASM32_COMPILE_AND_IR_SCAN_PASS; PRIOR_LIMIT_TIME_CAPACITY_BUDGET_EVIDENCE_RETAINED"
 
 [[test_unit]]
 path = "tests/property_tests.rs"
