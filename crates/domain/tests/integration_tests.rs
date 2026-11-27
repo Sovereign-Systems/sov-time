@@ -2,7 +2,7 @@
 
 use sov_time_domain::{
     Budget, BudgetError, CapacityError, CapacityState, DeadlineError, Duration, Instant, Limit,
-    LimitError, RelativeDeadline, TimeArithmeticError,
+    LimitError, RelativeDeadline, TaskId, TimeArithmeticError,
 };
 
 #[test]
@@ -290,4 +290,33 @@ fn public_error_equality_preserves_variant_identity() {
     assert!(CapacityError::Exhausted != CapacityError::ReleaseUnderflow);
     assert!(BudgetError::Exhausted == BudgetError::Exhausted);
     assert!(DeadlineError::Zero == DeadlineError::Zero);
+}
+
+fn assert_task_id_traits<T: Copy + Clone + core::fmt::Debug + Eq>() {}
+
+#[test]
+fn task_id_round_trips_owner_bound_u32_domain() {
+    let zero = TaskId::from_raw(0);
+    let maximum = TaskId::from_raw(u32::MAX);
+
+    let zero_raw: u32 = zero.get();
+    let maximum_raw: u32 = maximum.get();
+
+    assert!(zero_raw == 0);
+    assert!(maximum_raw == u32::MAX);
+}
+
+#[test]
+fn task_id_equality_is_exact_raw_identity() {
+    let first = TaskId::from_raw(7);
+    let same = TaskId::from_raw(7);
+    let different = TaskId::from_raw(8);
+
+    assert!(first == same);
+    assert!(first != different);
+}
+
+#[test]
+fn task_id_supports_minimal_value_traits() {
+    assert_task_id_traits::<TaskId>();
 }
