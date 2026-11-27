@@ -168,6 +168,11 @@ oracle = "exact capacity succeeds; capacity+1 rejects atomically"
 forbidden_effect = "caller mutation or hidden copy buffer"
 
 [[case]]
+id = "T-TASK-ID-U32"
+oracle = "TaskId values 0 and u32::MAX round-trip exactly through the owner-bound u32 identity representation"
+forbidden_effect = "reserved sentinel rejection, narrowing, truncation, or usize-defined public identity"
+
+[[case]]
 id = "T-TASK-007"
 oracle = "duplicate TaskId rejection preserves duplicate identity and caller slice"
 forbidden_effect = "input mutation or lost cause"
@@ -525,3 +530,14 @@ existing_selected_b_invariant_count = 34
 resource_profile_invariant_count = 8
 total_invariant_count = 42
 rule = "The resource suite and eight resource invariants are active obligations under the exact Owner-bound v0.1 resource profile."
+
+[task_id_binding]
+binding_state = "OWNER_BOUND_2026_11_27_U32"
+backing_type = "u32"
+base_case_count = 68
+task_id_binding_case_count = 1
+total_case_count = 69
+base_invariant_count = 42
+task_id_binding_invariant_count = 1
+total_invariant_count = 43
+rule = "The TaskId u32 representation case and invariant are active obligations under the Owner-bound SOV-TIME v0.1 identity binding."

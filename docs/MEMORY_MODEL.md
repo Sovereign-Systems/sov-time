@@ -7,6 +7,8 @@ RESOURCE_PROFILE_BINDING := OWNER_BOUND_2026_11_27
 RESOURCE_PROFILE_SHA256 := 38553424ef1a9df1e732cb49b0e1085a8eca01d8d3b135ad0b021dd267d537c0
 OWNER_BINDING_PACKET_SHA256 := b5527b29e6ddd1774d11c4386ef14eadbb9c1431155e24f1f610385930749940
 DEADLINE_MISS_CONTINUATION_POLICY := TERMINATE_ON_FIRST_MISS
+TASK_ID_BINDING := OWNER_BOUND_2026_11_27_U32
+TASK_ID_BACKING_TYPE := u32
 DATE := 2026-11-27
 
 ## 1. Profile A memory objective
@@ -51,7 +53,8 @@ A future dependency or implementation that introduces such behavior reopens the 
 Preferred representation strategy:
 - validated borrowed views over caller-owned data;
 - caller-supplied bounded scratch where mutable working state is required;
-- fixed-width scalar/value state for counters and identifiers.
+- fixed-width scalar/value state for counters and identifiers;
+- TaskId uses fixed-width `u32` backing and does not derive public identity meaning from `usize`.
 
 TaskSet model:
 
@@ -140,6 +143,7 @@ Bound v0.1 resource profile:
 - hosted MAX_IMPORT_CONTRACT_TASKS = 32
 - hosted MAX_IMPORT_BYTES = 65,536
 - Limit backing = u32
+- TaskId backing = u32
 
 Selected first-miss model gives:
     LIVE_JOBS_TOTAL <= admitted_task_count <= 32

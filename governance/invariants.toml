@@ -48,6 +48,13 @@ statement = "Every TaskSet contains unique stable TaskId values and identity doe
 verification = ["DUPLICATE_REJECTION_TEST", "PERMUTATION_TEST"]
 
 [[invariant]]
+id = "INV-TASK-004"
+name = "TASK_ID_U32_FIXED_WIDTH"
+owner = "domain.task.identity"
+statement = "TaskId uses fixed-width u32 backing, has no reserved sentinel value, and public identity meaning never depends on usize or architecture-dependent width."
+verification = ["T-TASK-ID-U32"]
+
+[[invariant]]
 id = "INV-SET-001"
 name = "BOUNDED_CARDINALITY"
 owner = "domain.task.set"

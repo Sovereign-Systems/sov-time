@@ -7,6 +7,8 @@ RESOURCE_PROFILE_BINDING := OWNER_BOUND_2026_11_27
 RESOURCE_PROFILE_SHA256 := 38553424ef1a9df1e732cb49b0e1085a8eca01d8d3b135ad0b021dd267d537c0
 OWNER_BINDING_PACKET_SHA256 := b5527b29e6ddd1774d11c4386ef14eadbb9c1431155e24f1f610385930749940
 DEADLINE_MISS_CONTINUATION_POLICY := TERMINATE_ON_FIRST_MISS
+TASK_ID_BINDING := OWNER_BOUND_2026_11_27_U32
+TASK_ID_BACKING_TYPE := u32
 DATE := 2026-11-27
 
 ## 1. Scope and non-claims
@@ -66,6 +68,13 @@ with:
 D_i = T_i identifies the implicit-deadline subset. No separate stored "implicit/constrained" profile flag is required; the relation is derived from values.
 
 TaskId is semantic identity and the final deterministic tie-break key. Input slice position is not a scheduling priority.
+
+Owner-bound v0.1 TaskId representation:
+- backing/storage type: fixed-width `u32`;
+- no reserved or sentinel TaskId value is defined; every `u32` bit pattern is a representable identity value;
+- TaskId numeric value does not itself encode scheduling priority;
+- TaskId public meaning must not depend on `usize` or architecture-dependent width;
+- uniqueness remains a TaskSet invariant rather than a TaskId-construction invariant.
 
 The empty task set is a valid domain value.
 
