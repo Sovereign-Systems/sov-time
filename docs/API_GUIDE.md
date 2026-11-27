@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.1
+@version 0.1.0-draft.2
 @description Public guide to the currently implemented SOV-TIME domain foundation API.
 -->
 
@@ -28,6 +28,8 @@ CapacityError
 
 Budget
 BudgetError
+
+TaskId
 
 RelativeDeadline
 DeadlineError
@@ -82,6 +84,14 @@ Checked arithmetic never silently wraps or saturates.
 `Limit` represents a strictly positive finite `u32` bound.
 
 Use `Limit::new(raw)` to construct a bound. Positive values are accepted, `Limit::new(0)` returns `LimitError::Zero`, and the exact stored value is available through `get()`. A `Limit` is a reusable bound value; it does not allocate storage or acquire capacity by itself.
+
+## Task identity
+
+`TaskId` is the stable semantic identity value for a periodic task. Its owner-bound v0.1 backing type is fixed-width `u32`.
+
+Use `TaskId::from_raw(raw)` to construct an identity and `get()` to recover the exact stored value. Every `u32` value is representable, including `0` and `u32::MAX`; there is no reserved sentinel value.
+
+`TaskId` supports `Copy`, `Clone`, `Debug`, `Eq`, and `PartialEq`. It deliberately does not currently expose ordering, hashing, default construction, parsing, blanket conversion, or `usize`-based identity semantics. Numeric identity does not itself encode scheduling priority. Uniqueness is a later `TaskSet` invariant rather than a scalar-construction rule.
 
 ## Relative deadlines
 
@@ -183,7 +193,6 @@ For mutable accounting types, a failed transition leaves the observable state un
 
 The following are not part of the current public API:
 
-- task identity;
 - complete periodic task parameters;
 - task sets;
 - EDF, RM, or DM scheduler APIs;

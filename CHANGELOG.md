@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.17
+@version 0.1.0-draft.18
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -27,6 +27,7 @@ This file records project changes. Entries under Unreleased describe development
 - Implemented the initial `sov-time-domain` foundation: positive finite limits, exact abstract `Instant`/`Duration` ticks with checked arithmetic, bounded capacity accounting, and monotonic work budgets.
 - Added typed boundary failures for zero limits, time arithmetic overflow/underflow, capacity exhaustion/release underflow, and budget exhaustion.
 - Added a validated strictly positive `RelativeDeadline` scalar over abstract duration ticks, including zero rejection and boundary/order tests.
+- Bound and implemented `TaskId` as an exact fixed-width `u32` semantic identity value with no reserved sentinel, full `0..=u32::MAX` representability, exact equality, and a deliberately minimal public trait/API surface.
 - Verified the implemented domain increments with host formatting/check/build/Clippy, direct integration-test execution, and direct `wasm32-unknown-unknown` compilation plus allocator/std reachability scanning for the exact verified source snapshots.
 - Clarified the public contribution workflow so external fork/pull-request participation is distinct from the canonical owner's single-root, `main`-only local engineering policy.
 - Updated the public security policy to describe the implemented bounded domain foundation accurately without implying an established global no-heap, WCET, or target-security guarantee.
@@ -42,7 +43,7 @@ This file records project changes. Entries under Unreleased describe development
 ### Pending
 
 - Populate and review member manifests, generate `Cargo.lock` with Cargo, and verify the complete host/WASM dependency, feature, and build graphs.
-- Complete task identity/parameter modeling, schedulers, schedulability analysis, bounded simulation, application/contracts layers, and the hosted web application.
+- Complete periodic task parameter/task-set modeling, schedulers, schedulability analysis, bounded simulation, application/contracts layers, and the hosted web application.
 - Release preparation after implementation, complete verification, and applicable lifecycle gates.
 
 No versioned software release has been published.

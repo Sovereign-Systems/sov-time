@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.13
+@version 0.1.0-draft.14
 @description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
@@ -24,6 +24,7 @@ The current `sov-time-domain` foundation includes:
 - `CapacityState`: bounded acquire/release accounting with atomic failure semantics.
 - `Budget`: monotonic bounded work accounting with explicit exhaustion.
 - `RelativeDeadline`: a strictly positive wrapper over abstract `Duration`, with typed zero rejection and exact duration ordering.
+- `TaskId`: stable semantic task identity with owner-bound fixed-width `u32` backing, exact full-domain round-trip, and no reserved sentinel value.
 - public zero-payload domain error enums support `Debug` and equality comparison without adding `Copy`/`Clone` commitments.
 - `#![no_std]` domain source with no external crate dependencies in the current foundation manifest.
 - typed failure paths with no ordinary `unwrap()`, `expect()`, panic fallback, wrapping arithmetic, saturation, or magic sentinels.
@@ -173,7 +174,7 @@ The implementation sequence is dependency-driven:
 - [x] abstract checked time primitives;
 - [x] bounded capacity and work-budget state;
 - [x] positive relative-deadline scalar;
-- [ ] stable task identity;
+- [x] stable task identity;
 - [ ] validated periodic task parameters and bounded task sets;
 - [ ] EDF / RM / DM policy ordering;
 - [ ] exact utilization and fixed-priority response-time analysis;
@@ -183,7 +184,7 @@ The implementation sequence is dependency-driven:
 - [ ] browser interop and Rust/WASM UI;
 - [ ] end-to-end release verification and public release.
 
-One current design dependency remains intentionally unresolved: the exact fixed-width backing type for `TaskId` has not yet been bound. The implementation does not guess that contract.
+`TaskId` is now owner-bound to fixed-width `u32`. Its numeric value is identity only; it does not itself encode scheduling priority.
 
 ## Toolchain and verification
 

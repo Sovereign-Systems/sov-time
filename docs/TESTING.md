@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.2
+@version 0.1.0-draft.3
 @description Public testing and verification guide for the current SOV-TIME development state.
 -->
 
@@ -28,6 +28,7 @@ The implemented domain foundation currently has public integration coverage for:
 - capacity acquisition, exhaustion, release, release underflow, and state preservation on failure;
 - monotonic budget consumption, exhaustion, deterministic repetition, and state preservation on failure;
 - `RelativeDeadline` zero rejection, one-tick acceptance, maximum-tick acceptance, and ordering;
+- `TaskId` exact `u32` round-trip at `0` and `u32::MAX`, exact equality, and its minimal public value-trait surface;
 - public error `Debug`/equality trait availability;
 - preservation of distinct error-variant identity.
 
