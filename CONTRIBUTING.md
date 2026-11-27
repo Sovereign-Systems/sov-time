@@ -1,15 +1,17 @@
 <!--
-@version 0.1.0-draft.3
+@version 0.1.0-draft.4
 @description Contribution boundaries, source ownership, and verification requirements.
 -->
 
 # Contributing to SOV-TIME
 
-## Development boundary
+## Contribution workflow
 
-Use the existing project directory and the `main` branch. Do not create a second project root, branch, or worktree as part of the owner's engineering workflow. Keep project-owned generated files, build outputs, caches, temporary files, and evidence within the project root.
+The canonical owner-controlled engineering workspace uses one project root and the `main` branch only. Maintainers working in that workspace must not create a second project root, local feature branch, or worktree, and must not publish or perform destructive Git operations without the applicable authorization.
 
-Do not publish changes or execute destructive Git operations without authorization.
+External contributors are not expected to reproduce the owner's local workspace policy. Use a normal GitHub contribution path: work in your own fork or GitHub-managed contribution branch and open a pull request targeting this repository's `main` branch. Keep each pull request narrowly scoped and explain the requirement, behavior change, verification performed, and any unresolved limitation.
+
+Do not commit generated build outputs, caches, local evidence, environment files, credentials, or private source-binding records.
 
 ## Source changes
 
