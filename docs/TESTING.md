@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.3
+@version 0.1.0-draft.4
 @description Public testing and verification guide for the current SOV-TIME development state.
 -->
 
@@ -29,6 +29,9 @@ The implemented domain foundation currently has public integration coverage for:
 - monotonic budget consumption, exhaustion, deterministic repetition, and state preservation on failure;
 - `RelativeDeadline` zero rejection, one-tick acceptance, maximum-tick acceptance, and ordering;
 - `TaskId` exact `u32` round-trip at `0` and `u32::MAX`, exact equality, and its minimal public value-trait surface;
+- `TaskParameters` exact field preservation, zero execution/period rejection, distinct `C > D` / `D > T` failures, and accepted `C = D` / `D = T` boundaries;
+- `TaskSet` empty-set admission, explicit caller-limit enforcement, duplicate-identity rejection with caller-slice preservation, read-only borrowed iteration, permutation-preserved validity, owner maximum 32 acceptance, and 33-task hard-cap rejection before duplicate semantics;
+- 64-bit host unit coverage for the first concrete count above the `u32` task-count domain (`4,294,967,296`) returning `IndexConversionFailure` through the private checked-count boundary;
 - public error `Debug`/equality trait availability;
 - preservation of distinct error-variant identity.
 

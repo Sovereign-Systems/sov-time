@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.1
+@version 0.1.0-draft.2
 @description Public security model for the currently implemented SOV-TIME foundation and planned trust boundaries.
 -->
 
@@ -41,7 +41,23 @@ Current arithmetic operations use checked addition, subtraction, and multiplicat
 
 `RelativeDeadline` rejects `Duration::ZERO`.
 
-This scalar does not claim to validate the complete periodic-task relation. Cross-field constraints belong to the later task-parameter constructor.
+This scalar owns deadline positivity only. The implemented `TaskParameters` constructor owns the complete periodic-task cross-field relation `C > 0`, `T > 0`, and `C <= D <= T`.
+
+### Periodic task validation
+
+`TaskParameters` rejects zero execution demand, zero period, execution demand greater than the relative deadline, and a relative deadline greater than the period through distinct typed failures. Its fields remain private, so callers cannot construct an invalid task tuple through a public field write.
+
+`TaskSet` adds a bounded borrowed admission boundary over caller-owned task storage:
+- concrete count conversion is checked;
+- more than 32 tasks returns `TaskSetError::TaskCapacityExceeded`;
+- exceeding the explicit caller `Limit` returns `TaskSetError::CapacityExceeded`;
+- duplicate semantic identities return `TaskSetError::DuplicateTaskId(id)`;
+- rejected construction does not mutate caller storage;
+- no task array is copied into an owned dynamic collection.
+
+Duplicate scanning occurs only after the count/conversion/capacity gates. With the owner-bound maximum of 32 tasks, the deterministic prior-pair scan is bounded to at most 496 comparisons.
+
+These properties bound this validation path; they do not establish hardware WCET or a complete denial-of-service proof.
 
 ### Capacity-state atomicity
 
@@ -74,7 +90,15 @@ The current public error enums preserve distinct material causes for:
 - capacity exhaustion;
 - capacity release underflow;
 - budget exhaustion;
-- zero relative deadline.
+- zero relative deadline;
+- zero task execution demand;
+- zero task period;
+- execution demand exceeding deadline;
+- deadline exceeding period;
+- caller task-set capacity exceeded;
+- owner task maximum exceeded;
+- checked task-count conversion failure;
+- duplicate task identity.
 
 Application or UI layers must not collapse materially different domain failures into a success value or unrelated analytical outcome.
 
@@ -148,7 +172,7 @@ Security requirements for those capabilities must be evaluated when and if the a
 
 The owner-bound v0.1 model defines explicit limits for tasks, analysis work, simulation steps, timeline segments, and hosted import size. Those design bounds prevent later implementations from treating work and storage as implicitly unbounded.
 
-Only the currently implemented `Limit`, `CapacityState`, and `Budget` primitives are public executable resource controls today.
+The currently implemented public executable resource controls include `Limit`, `CapacityState`, `Budget`, and `TaskSet` admission. `TaskSet` enforces both the explicit caller bound and the owner-bound maximum of 32 tasks before duplicate scanning.
 
 A bounded count does not prove bounded CPU time, stack use, allocation behavior, or hardware WCET. Those properties require separate target-specific evidence.
 

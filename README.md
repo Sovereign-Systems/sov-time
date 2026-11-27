@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.14
+@version 0.1.0-draft.15
 @description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
@@ -9,7 +9,7 @@
 
 SOV-TIME is an engineering-focused Rust project for modeling periodic real-time workloads, evaluating schedulability, and producing deterministic scheduling simulations under explicit mathematical and resource bounds. A browser-based WebAssembly interface is planned as a separate hosted layer.
 
-> **Project status:** active development. The low-level domain foundation is now partially implemented and verified, while task modeling, schedulers, schedulability analysis, simulation, and the browser application are still under construction. There is no production release, hardware real-time guarantee, WCET claim, safety certification, or security certification.
+> **Project status:** active development. The low-level domain foundation and bounded periodic task-value model are partially implemented and verified, while scheduler policies, schedulability analysis, simulation, application/contracts layers, and the browser application are still under construction. There is no production release, hardware real-time guarantee, WCET claim, safety certification, or security certification.
 
 The public API is pre-release and may change before the first versioned release. Current documentation distinguishes implemented behavior from planned architecture so that roadmap items are not presented as available features.
 
@@ -25,6 +25,8 @@ The current `sov-time-domain` foundation includes:
 - `Budget`: monotonic bounded work accounting with explicit exhaustion.
 - `RelativeDeadline`: a strictly positive wrapper over abstract `Duration`, with typed zero rejection and exact duration ordering.
 - `TaskId`: stable semantic task identity with owner-bound fixed-width `u32` backing, exact full-domain round-trip, and no reserved sentinel value.
+- `TaskParameters`: immutable validated periodic-task tuples enforcing `C > 0`, `T > 0`, and `C <= D <= T` with distinct typed failures.
+- `TaskSet<'a>`: bounded immutable borrowed task-set views enforcing the explicit caller `Limit`, the owner-bound maximum of 32 tasks, and unique `TaskId` values without copying the caller slice.
 - public zero-payload domain error enums support `Debug` and equality comparison without adding `Copy`/`Clone` commitments.
 - `#![no_std]` domain source with no external crate dependencies in the current foundation manifest.
 - typed failure paths with no ordinary `unwrap()`, `expect()`, panic fallback, wrapping arithmetic, saturation, or magic sentinels.
@@ -74,6 +76,43 @@ fn main() {
 ```
 
 The example uses abstract ticks only. It does not attach seconds, milliseconds, wall-clock time, or hardware timing semantics to the domain values.
+
+## Validated periodic task example
+
+This example exercises the bounded task-value API only. It does not schedule, analyze, or simulate the task set.
+
+```rust
+use sov_time_domain::{Duration, Limit, RelativeDeadline, TaskId, TaskParameters, TaskSet};
+
+fn main() {
+    let Ok(deadline) = RelativeDeadline::new(Duration::from_ticks(4)) else {
+        return;
+    };
+
+    let Ok(task) = TaskParameters::new(
+        TaskId::from_raw(7),
+        Duration::from_ticks(2),
+        Duration::from_ticks(5),
+        deadline,
+    ) else {
+        return;
+    };
+
+    let tasks = [task];
+
+    let Ok(task_limit) = Limit::new(1) else {
+        return;
+    };
+
+    let Ok(task_set) = TaskSet::new(&tasks, task_limit) else {
+        return;
+    };
+
+    let _validated_tasks = task_set.tasks();
+}
+```
+
+The task set borrows the caller-owned task array. The owner-bound v0.1 task maximum is 32; scheduler policy semantics are introduced separately.
 
 ## Target model: v0.1
 
@@ -175,7 +214,7 @@ The implementation sequence is dependency-driven:
 - [x] bounded capacity and work-budget state;
 - [x] positive relative-deadline scalar;
 - [x] stable task identity;
-- [ ] validated periodic task parameters and bounded task sets;
+- [x] validated periodic task parameters and bounded task sets;
 - [ ] EDF / RM / DM policy ordering;
 - [ ] exact utilization and fixed-priority response-time analysis;
 - [ ] constrained-deadline EDF demand-bound analysis;

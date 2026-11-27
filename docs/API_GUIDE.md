@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.2
+@version 0.1.0-draft.3
 @description Public guide to the currently implemented SOV-TIME domain foundation API.
 -->
 
@@ -33,6 +33,12 @@ TaskId
 
 RelativeDeadline
 DeadlineError
+
+TaskParameters
+TaskParameterError
+
+TaskSet
+TaskSetError
 ```
 
 The domain crate is `#![no_std]` and currently has no external crate dependencies. Those source properties do not by themselves establish a global no-heap, WCET, hardware real-time, or release guarantee.
@@ -99,9 +105,43 @@ Use `TaskId::from_raw(raw)` to construct an identity and `get()` to recover the 
 
 Use `RelativeDeadline::new(duration)` to validate positivity. A positive duration is retained exactly and `Duration::ZERO` returns `DeadlineError::Zero`.
 
-The scalar enforces only its own positivity invariant. Cross-field task constraints such as execution time versus deadline versus period belong to the later task-parameter API and are not implemented here.
+The scalar enforces only its own positivity invariant. Cross-field task constraints are owned by `TaskParameters`, which validates the complete v0.1 relation `C > 0`, `T > 0`, and `C <= D <= T`.
 
 `RelativeDeadline` supports `Copy`, `Clone`, `Debug`, equality, and total ordering.
+
+## Periodic task parameters
+
+`TaskParameters` represents one immutable validated periodic constrained-deadline task tuple:
+
+```text
+(TaskId, C, T, D)
+```
+
+`TaskParameters::new(id, execution, period, deadline)` requires `C > 0`, `T > 0`, and `C <= D <= T`. The supplied deadline is already a validated `RelativeDeadline`, so deadline positivity remains owned by that scalar type rather than being duplicated in `TaskParameterError`.
+
+Construction preserves exact supplied values and returns distinct failures:
+- `TaskParameterError::ZeroExecution`;
+- `TaskParameterError::ZeroPeriod`;
+- `TaskParameterError::ExecutionExceedsDeadline`;
+- `TaskParameterError::DeadlineExceedsPeriod`.
+
+The public value exposes read-only `id()`, `execution()`, `period()`, and `deadline()` accessors. Its fields remain private. It supports `Debug`, `Eq`, and `PartialEq` but does not currently commit to `Copy`, `Clone`, ordering, hashing, default construction, parsing, serialization, or blanket conversions.
+
+## Bounded task sets
+
+`TaskSet<'a>` is a validated immutable borrowed view over caller-owned `&'a [TaskParameters]` plus an explicit `Limit`.
+
+Construction preserves four materially distinct task-set failures:
+- `TaskSetError::IndexConversionFailure` when the concrete task count cannot be checked-converted into the fixed-width `u32` count domain;
+- `TaskSetError::TaskCapacityExceeded` when the represented count exceeds the owner-bound v0.1 maximum of 32 tasks;
+- `TaskSetError::CapacityExceeded` when the admitted count exceeds the explicit caller `Limit`;
+- `TaskSetError::DuplicateTaskId(id)` when a repeated semantic identity is detected.
+
+The empty set is valid with a valid positive `Limit`. Duplicate scanning occurs only after fixed-width conversion, the owner cap, and the caller limit have passed. At the 32-task owner maximum, the deterministic prior-pair duplicate scan performs at most 496 comparisons.
+
+`TaskSet` borrows the caller slice directly; it does not copy tasks into an owned dynamic collection and rejected construction does not mutate caller storage. `tasks()` returns the read-only borrowed slice. `limit()` returns the exact caller-provided bound; effective admission is still limited to the smaller of that value and 32.
+
+Input position remains observational only and does not become scheduling priority.
 
 ## Capacity accounting
 
@@ -134,6 +174,8 @@ Current public errors are typed enums:
 | `CapacityError` | `Exhausted`, `ReleaseUnderflow` |
 | `BudgetError` | `Exhausted` |
 | `DeadlineError` | `Zero` |
+| `TaskParameterError` | `ZeroExecution`, `ZeroPeriod`, `ExecutionExceedsDeadline`, `DeadlineExceedsPeriod` |
+| `TaskSetError` | `CapacityExceeded`, `TaskCapacityExceeded`, `IndexConversionFailure`, `DuplicateTaskId(TaskId)` |
 
 These error enums support `Debug`, `Eq`, and `PartialEq`. They intentionally do not currently commit to `Copy`, `Clone`, `Display`, `core::error::Error`, blanket conversion traits, or serialization contracts.
 
@@ -183,9 +225,46 @@ fn main() {
 
 This exact walkthrough is compiler- and Clippy-verified against the current implemented domain source snapshot.
 
+## Task-model walkthrough
+
+The following example exercises only validated task-value construction and bounded task-set admission. It does not schedule, analyze, or simulate the task set.
+
+```rust
+use sov_time_domain::{Duration, Limit, RelativeDeadline, TaskId, TaskParameters, TaskSet};
+
+fn main() {
+    let Ok(deadline) = RelativeDeadline::new(Duration::from_ticks(4)) else {
+        return;
+    };
+
+    let Ok(task) = TaskParameters::new(
+        TaskId::from_raw(7),
+        Duration::from_ticks(2),
+        Duration::from_ticks(5),
+        deadline,
+    ) else {
+        return;
+    };
+
+    let tasks = [task];
+
+    let Ok(task_limit) = Limit::new(1) else {
+        return;
+    };
+
+    let Ok(task_set) = TaskSet::new(&tasks, task_limit) else {
+        return;
+    };
+
+    let _validated_tasks = task_set.tasks();
+}
+```
+
+This exact task-model walkthrough was admitted to the project verification harness and was compiler-, Clippy-, and build-verified against the final D04 source snapshot before publication.
+
 ## Failure-handling expectations
 
-Callers should handle `Result` explicitly. The current foundation does not use sentinel values to represent arithmetic, capacity, budget, limit, or deadline failure.
+Callers should handle `Result` explicitly. The current foundation does not use sentinel values to represent arithmetic, capacity, budget, limit, deadline, task-parameter, or task-set failure.
 
 For mutable accounting types, a failed transition leaves the observable state unchanged. For checked arithmetic, failure returns the exact applicable `TimeArithmeticError` instead of wrapping or saturating.
 
@@ -193,8 +272,6 @@ For mutable accounting types, a failed transition leaves the observable state un
 
 The following are not part of the current public API:
 
-- complete periodic task parameters;
-- task sets;
 - EDF, RM, or DM scheduler APIs;
 - ready queues;
 - schedulability-analysis APIs;
