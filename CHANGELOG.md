@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.15
+@version 0.1.0-draft.16
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -34,6 +34,7 @@ This file records project changes. Entries under Unreleased describe development
 - Added a compiler- and Clippy-verified README example for the currently implemented domain foundation, plus explicit pre-release API stability and documentation links.
 - Added a public API guide for the currently implemented domain foundation, with exact type/error coverage, failure semantics, a verified foundation walkthrough, explicit future-API exclusions, and the current staged-workspace limitation.
 - Added a public testing guide that documents the current domain test surface, evidence layers, target-specific boundaries, TDD expectations, contribution evidence, and the current public reproducibility limitation without implying a release pipeline.
+- Added a public security model that separates implemented domain controls from future trust boundaries, documents failure/resource/dependency posture, and makes current non-surfaces and assurance limitations explicit.
 
 - MIT License selected under delegated owner authority and written to `LICENSE`; the published root Cargo workspace metadata declares `license = "MIT"` consistently.
 

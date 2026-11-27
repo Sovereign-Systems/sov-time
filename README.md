@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.11
+@version 0.1.0-draft.12
 @description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
@@ -205,6 +205,7 @@ The complete six-member workspace is **not yet release-qualified** because sever
 - [Error model](docs/ERROR_MODEL.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
+- [Security model](docs/SECURITY_MODEL.md)
 - [Changelog](CHANGELOG.md)
 
 ## Important limitations

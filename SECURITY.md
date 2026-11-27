@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.2
+@version 0.1.0-draft.3
 @description Security reporting, trust boundaries, and supported-release policy.
 -->
 
@@ -22,6 +22,10 @@ A useful report identifies the affected revision, target, configuration, expecte
 The implemented domain foundation uses explicit validated values, checked arithmetic, typed failures, and bounded resource-accounting primitives. Future externally supplied task parameters and scenarios remain untrusted inputs; their validation, capacity, analysis-termination, and deterministic failure requirements must be enforced before those higher-level workflows are advertised as implemented.
 
 Browser-specific effects belong outside the strict domain foundation. Imported data must be validated before it reaches domain computations. Browser storage, file import, and export are separate trust boundaries. No source-text statement in this policy establishes a global no-heap, WCET, or target-security guarantee.
+
+## Detailed security model
+
+The repository's current implemented controls, trust boundaries, future attack surfaces, dependency posture, and non-claims are documented in [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md).
 
 ## Assurance limitations
 
