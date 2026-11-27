@@ -5,6 +5,7 @@
 /// The error is deliberately narrow: zero is the only invalid value for the
 /// reusable positive finite limit primitive. Project-specific maximum values
 /// are separate consuming-project bindings.
+#[derive(Debug, Eq, PartialEq)]
 pub enum LimitError {
     /// The requested limit was zero, but a limit must be strictly positive.
     Zero,

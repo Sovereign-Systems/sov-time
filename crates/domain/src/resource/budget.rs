@@ -3,6 +3,7 @@
 use crate::Limit;
 
 /// Failure produced by a work-budget transition.
+#[derive(Debug, Eq, PartialEq)]
 pub enum BudgetError {
     /// No work unit remains available for consumption.
     Exhausted,

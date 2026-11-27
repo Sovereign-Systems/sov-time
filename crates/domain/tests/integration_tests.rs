@@ -268,3 +268,26 @@ fn relative_deadline_order_matches_contained_duration() {
         assert!(first < second);
     }
 }
+
+fn assert_public_error_traits<T: core::fmt::Debug + Eq>() {}
+
+#[test]
+fn public_error_types_support_diagnostic_value_semantics() {
+    assert_public_error_traits::<LimitError>();
+    assert_public_error_traits::<TimeArithmeticError>();
+    assert_public_error_traits::<CapacityError>();
+    assert_public_error_traits::<BudgetError>();
+    assert_public_error_traits::<DeadlineError>();
+}
+
+#[test]
+fn public_error_equality_preserves_variant_identity() {
+    assert!(LimitError::Zero == LimitError::Zero);
+    assert!(TimeArithmeticError::AdditionOverflow != TimeArithmeticError::MultiplicationOverflow);
+    assert!(
+        TimeArithmeticError::MultiplicationOverflow != TimeArithmeticError::SubtractionUnderflow
+    );
+    assert!(CapacityError::Exhausted != CapacityError::ReleaseUnderflow);
+    assert!(BudgetError::Exhausted == BudgetError::Exhausted);
+    assert!(DeadlineError::Zero == DeadlineError::Zero);
+}

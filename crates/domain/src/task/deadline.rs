@@ -3,6 +3,7 @@
 use crate::Duration;
 
 /// Failure returned when constructing a [`RelativeDeadline`].
+#[derive(Debug, Eq, PartialEq)]
 pub enum DeadlineError {
     /// A relative deadline must be strictly positive.
     Zero,

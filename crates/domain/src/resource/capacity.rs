@@ -3,6 +3,7 @@
 use crate::Limit;
 
 /// Failure produced by a capacity-state transition.
+#[derive(Debug, Eq, PartialEq)]
 pub enum CapacityError {
     /// No additional unit can be acquired without exceeding the configured limit.
     Exhausted,
