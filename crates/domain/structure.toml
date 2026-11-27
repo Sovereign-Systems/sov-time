@@ -20,6 +20,8 @@ production_effect_target_state = "UNPROVEN_UNTIL_EXACT_GRAPH_TARGET_AND_IMAGE_EV
 
 unresolved_items = [
   "FULLSTACK_ZERO_PRIMARY_PROFILE_STILL_BLOCKS_FRAMEWORK_AND_SPECIALIZED_ALGORITHM_IMPLEMENTATION",
+  "D03_TASK_ID_BACKING_TYPE_NOT_BOUND_BY_CURRENT_PROJECT_SOURCES",
+  "D03_PRIORITY_RS_REFERENCE_CLOSURE_PASS_PHYSICAL_DELETION_NOT_AUTHORIZED",
 ]
 
 # disposition meanings:
@@ -121,11 +123,11 @@ path = "src/task/identity.rs"
 file_id = "domain.task.identity"
 exists_now = true
 current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+disposition = "BLOCKED_BACKING_TYPE_UNBOUND"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent stable task identity and deterministic tie-break identity."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "D03_BLOCKED; CURRENT_PROJECT_SOURCES_REQUIRE_FIXED_WIDTH_UNSIGNED_TASK_ID_BUT_DO_NOT_BIND_U32_OR_U64; NO_IMPLEMENTATION_GUESS_PERMITTED"
 
 [[unit]]
 path = "src/task/deadline.rs"
@@ -169,7 +171,7 @@ disposition = "DELETE_CANDIDATE"
 candidate_primary_class = "NONE"
 semantic_owner = "NONE"
 purpose = "No independent responsibility; fixed-priority order is derived from task parameters and task identity."
-classification_state = "DELETION_REQUIRES_REFERENCE_CLOSURE_PROOF"
+classification_state = "D03_REFERENCE_CLOSURE_PASS; ZERO_EXECUTABLE_MODULE_REEXPORT_TEST_OR_PUBLIC_DOC_CONSUMERS; PHYSICAL_DELETION_ATTEMPT_BLOCKED_BY_WORKSPACE_DELETION_NOT_AUTHORIZED"
 
 [[unit]]
 path = "src/resource.rs"
