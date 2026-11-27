@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.5
+@version 0.1.0-draft.6
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -12,6 +12,8 @@ This file records project changes. Entries under Unreleased describe development
 ### Added
 
 - Initial project directory and public GitHub repository.
+- Initial reviewed public scaffold published to the `main` branch.
+- Public README no longer links to unpublished internal development records.
 - Single-branch Git initialization using `main`.
 - Workspace directory scaffold separating the domain, application, contracts, browser interoperability, web interface, and web entry point.
 - Initial project overview, contribution requirements, and security reporting guidance.

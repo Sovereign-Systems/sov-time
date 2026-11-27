@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.4
+@version 0.1.0-draft.5
 @description Project overview, architecture, development status, and verification boundaries.
 -->
 
@@ -49,8 +49,6 @@ The repository is currently a scaffold. Do not interpret the presence of a sourc
 The root toolchain configuration selects Rust 1.99.1. The formatter configuration selects Rust 2024 parsing and formatting style. The Clippy configuration disallows exemptions for `unwrap` and `expect` in tests and const contexts and declares an empty allowed-type list. These files have been written; the effective compiler and lint invocation, complete toolchain provisioning, and target support remain unverified. The Clippy configuration does not enable the associated lints by itself.
 
 Build and test commands will be published after the workspace manifests, toolchain, target matrix, and verification requirements have been established. Before a build, verify the effective destinations of compiler artifacts, Cargo caches and temporary files against the project-local output boundary.
-
-See [plan.md](plan.md) for the ordered development backlog, dependencies, acceptance criteria, and current resume checkpoint. The plan is a working record, not a claim of completed implementation.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development rules and [SECURITY.md](SECURITY.md) for security reporting.
 
