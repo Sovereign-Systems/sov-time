@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.1
+@version 0.1.0-draft.2
 @description Public testing and verification guide for the current SOV-TIME development state.
 -->
 
@@ -134,6 +134,7 @@ Those require their own applicable evidence.
 ## Related documentation
 
 - [API guide](API_GUIDE.md)
+- [Reproducibility](REPRODUCIBILITY.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Project overview](../README.md)
 - [Architecture](ARCHITECTURE.md)

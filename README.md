@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.12
+@version 0.1.0-draft.13
 @description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
@@ -198,6 +198,7 @@ The complete six-member workspace is **not yet release-qualified** because sever
 
 - [API guide](docs/API_GUIDE.md)
 - [Testing guide](docs/TESTING.md)
+- [Reproducibility](docs/REPRODUCIBILITY.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Design record](docs/DESIGN.md)
 - [Mathematical model](docs/MATHEMATICAL_MODEL.md)
