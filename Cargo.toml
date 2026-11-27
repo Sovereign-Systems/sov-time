@@ -1,0 +1,43 @@
+# @version 0.1.0-draft.2
+# @description Root virtual Cargo workspace for SOV-TIME.
+# External framework dependencies are admitted only in their owning phase.
+
+[workspace]
+members = [
+    "crates/domain",
+    "crates/application",
+    "crates/contracts",
+    "crates/browser_interop",
+    "crates/web_ui",
+    "apps/web",
+]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99.1"
+license = "MIT"
+repository = "https://github.com/Sovereign-Systems/sov-time"
+publish = false
+
+[workspace.dependencies]
+sov-time-domain = { path = "crates/domain" }
+sov-time-contracts = { path = "crates/contracts" }
+sov-time-application = { path = "crates/application" }
+sov-time-browser-interop = { path = "crates/browser_interop" }
+sov-time-web-ui = { path = "crates/web_ui" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"
+arithmetic_side_effects = "deny"
+indexing_slicing = "deny"

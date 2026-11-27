@@ -1,0 +1,7 @@
+# @version 0.1.0-draft.1
+# @description Project-local Cargo compiler artifact directory.
+# This default does not constrain Cargo home, temporary files, or overrides.
+# Reference: Cargo 1.99.1 configuration semantics.
+
+[build]
+target-dir = ".local/target"
