@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.11
+@version 0.1.0-draft.12
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -24,13 +24,17 @@ This file records project changes. Entries under Unreleased describe development
 - Rust 2024 parsing and style edition selection in `rustfmt.toml`; TOML syntax verified.
 - Explicit Clippy configuration excluding `unwrap` and `expect` exemptions; isolated negative fixtures verified effective `unwrap_used` and `expect_used` rejection, followed by a clean Clippy pass after source restoration.
 - Contribution guidance now distinguishes prohibited ordinary panic-shortcut usage from isolated intentionally invalid rejection fixtures used solely to prove checker enforcement.
+- Implemented the initial `sov-time-domain` foundation: positive finite limits, exact abstract `Instant`/`Duration` ticks with checked arithmetic, bounded capacity accounting, and monotonic work budgets.
+- Added typed boundary failures for zero limits, time arithmetic overflow/underflow, capacity exhaustion/release underflow, and budget exhaustion.
+- Added a validated strictly positive `RelativeDeadline` scalar over abstract duration ticks, including zero rejection and boundary/order tests.
+- Verified the implemented domain increments with host formatting/check/build/Clippy, direct integration-test execution, and direct `wasm32-unknown-unknown` compilation plus allocator/std reachability scanning for the exact verified source snapshots.
 
 - MIT License selected under delegated owner authority and written to `LICENSE`; the published root Cargo workspace metadata declares `license = "MIT"` consistently.
 
 ### Pending
 
 - Populate and review member manifests, generate `Cargo.lock` with Cargo, and verify the complete host/WASM dependency, feature, and build graphs.
-- Implementation and verification of the domain engine and hosted web application.
+- Complete task identity/parameter modeling, schedulers, schedulability analysis, bounded simulation, application/contracts layers, and the hosted web application.
 - Release preparation after implementation, complete verification, and applicable lifecycle gates.
 
 No versioned software release has been published.

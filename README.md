@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.8
+@version 0.1.0-draft.9
 @description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
@@ -21,6 +21,7 @@ The current `sov-time-domain` foundation includes:
 - `TimeArithmeticError`: distinct addition-overflow, multiplication-overflow, and subtraction-underflow failures.
 - `CapacityState`: bounded acquire/release accounting with atomic failure semantics.
 - `Budget`: monotonic bounded work accounting with explicit exhaustion.
+- `RelativeDeadline`: a strictly positive wrapper over abstract `Duration`, with typed zero rejection and exact duration ordering.
 - `#![no_std]` domain source with no external crate dependencies in the current foundation manifest.
 - typed failure paths with no ordinary `unwrap()`, `expect()`, panic fallback, wrapping arithmetic, saturation, or magic sentinels.
 
@@ -124,7 +125,8 @@ The implementation sequence is dependency-driven:
 - [x] validated finite limit foundation;
 - [x] abstract checked time primitives;
 - [x] bounded capacity and work-budget state;
-- [ ] stable task identity and relative deadlines;
+- [x] positive relative-deadline scalar;
+- [ ] stable task identity;
 - [ ] validated periodic task parameters and bounded task sets;
 - [ ] EDF / RM / DM policy ordering;
 - [ ] exact utilization and fixed-priority response-time analysis;
