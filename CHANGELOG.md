@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.14
+@version 0.1.0-draft.15
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -32,6 +32,8 @@ This file records project changes. Entries under Unreleased describe development
 - Updated the public security policy to describe the implemented bounded domain foundation accurately without implying an established global no-heap, WCET, or target-security guarantee.
 - Added `Debug`, `Eq`, and `PartialEq` to the existing public domain error enums while deliberately avoiding `Copy`/`Clone`, new failure variants, or conversion APIs.
 - Added a compiler- and Clippy-verified README example for the currently implemented domain foundation, plus explicit pre-release API stability and documentation links.
+- Added a public API guide for the currently implemented domain foundation, with exact type/error coverage, failure semantics, a verified foundation walkthrough, explicit future-API exclusions, and the current staged-workspace limitation.
+- Added a public testing guide that documents the current domain test surface, evidence layers, target-specific boundaries, TDD expectations, contribution evidence, and the current public reproducibility limitation without implying a release pipeline.
 
 - MIT License selected under delegated owner authority and written to `LICENSE`; the published root Cargo workspace metadata declares `license = "MIT"` consistently.
 
