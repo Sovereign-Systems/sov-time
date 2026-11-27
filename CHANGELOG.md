@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.8
+@version 0.1.0-draft.9
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -16,18 +16,19 @@ This file records project changes. Entries under Unreleased describe development
 - Public README no longer links to unpublished internal development records.
 - Single-branch Git initialization using `main`.
 - Workspace directory scaffold separating the domain, application, contracts, browser interoperability, web interface, and web entry point.
+- Published root virtual Cargo workspace plus project-local Cargo target output configuration under `.local/target`.
 - Initial project overview, contribution requirements, and security reporting guidance.
-- Exact Rust 1.99.1 toolchain selection in the local root configuration; complete component, target, and build verification remains pending.
+- Exact Rust 1.99.1 toolchain selection in the root configuration, with project-bound verification of rustc, Cargo, rustfmt, Clippy, the host target, and `wasm32-unknown-unknown`; complete member/workspace build verification remains pending.
 - Verified Git ignore behavior for project-local build outputs, local evidence, private source bindings, environment files, and the unpublished internal `plan.md`. Cargo.lock and Cargo manifests remain eligible for tracking.
 - Rust 2024 parsing and style edition selection in `rustfmt.toml`; TOML syntax verified.
-- Explicit Clippy configuration excluding `unwrap` and `expect` exemptions; exact content and TOML syntax verified. Effective lint enforcement remains pending.
+- Explicit Clippy configuration excluding `unwrap` and `expect` exemptions; isolated negative fixtures verified effective `unwrap_used` and `expect_used` rejection, followed by a clean Clippy pass after source restoration.
 
-- MIT License selected under delegated owner authority and written to `LICENSE`; manifest metadata reconciliation remains pending.
+- MIT License selected under delegated owner authority and written to `LICENSE`; the published root Cargo workspace metadata declares `license = "MIT"` consistently.
 
 ### Pending
 
-- Complete toolchain reconciliation and Cargo workspace configuration.
+- Populate and review member manifests, generate `Cargo.lock` with Cargo, and verify the complete host/WASM dependency, feature, and build graphs.
 - Implementation and verification of the domain engine and hosted web application.
-- License metadata reconciliation and release preparation.
+- Release preparation after implementation, complete verification, and applicable lifecycle gates.
 
 No versioned software release has been published.

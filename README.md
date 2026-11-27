@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.5
+@version 0.1.0-draft.6
 @description Project overview, architecture, development status, and verification boundaries.
 -->
 
@@ -46,7 +46,7 @@ The foundation is designed for `no_std` and no allocation, including its runtime
 
 The repository is currently a scaffold. Do not interpret the presence of a source path as an implemented feature.
 
-The root toolchain configuration selects Rust 1.99.1. The formatter configuration selects Rust 2024 parsing and formatting style. The Clippy configuration disallows exemptions for `unwrap` and `expect` in tests and const contexts and declares an empty allowed-type list. These files have been written; the effective compiler and lint invocation, complete toolchain provisioning, and target support remain unverified. The Clippy configuration does not enable the associated lints by itself.
+The root toolchain configuration selects Rust 1.99.1, and `rustfmt.toml` selects Rust 2024 parsing and formatting style. Project-bound qualification verified Rust 1.99.1 compiler and Cargo execution, rustfmt and Clippy identities, the installed host target, and `wasm32-unknown-unknown` target support. The Clippy configuration disallows exemptions for `unwrap` and `expect` in tests and const contexts and declares an empty allowed-type list; isolated negative fixtures verified that the selected `unwrap_used` and `expect_used` deny rules reject prohibited calls, followed by a clean Clippy pass after restoration. These root-level checks do not imply that the still-empty member crates or complete workspace build have been verified.
 
 Build and test commands will be published after the workspace manifests, toolchain, target matrix, and verification requirements have been established. Before a build, verify the effective destinations of compiler artifacts, Cargo caches and temporary files against the project-local output boundary.
 
