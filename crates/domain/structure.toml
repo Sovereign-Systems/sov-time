@@ -7,7 +7,7 @@ crate_id = "SOV_TIME_DOMAIN"
 package_name = "sov-time-domain"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 candidate_state = "WORKING_PHASE_F_TOPOLOGY"
-evaluated_project_head = "06379fbd0d664a76e8f06ff62525252be5dd583d"
+evaluated_project_head = "226b6726b1b155737199c29132e504adfe0d1379"
 target_before_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 cargo_candidate_sha256 = "756e81a8e5f6894e33259a4b92413636c133f8d1eced1ac8353248679f916c24"
 source_binding_candidate_sha256 = "e8b9d0c8dd55aed47d17821b2ea8a948ed82b2878b9b147be92274156a6464d7"
@@ -19,9 +19,7 @@ production_effect_target = "NO_STD_NO_ALLOC_NO_HEAP_NO_GLOBAL_ALLOCATOR_NO_TRANS
 production_effect_target_state = "UNPROVEN_UNTIL_EXACT_GRAPH_TARGET_AND_IMAGE_EVIDENCE"
 
 unresolved_items = [
-  "FULLSTACK_ZERO_PRIMARY_PROFILE_STILL_BLOCKS_IMPLEMENTATION_COMMITMENT",
-  "F09_NUMERIC_CAPACITY_MEMORY_AND_ERROR_CONTRACTS_NOT_YET_SERIALIZED",
-  "F10_INVARIANT_AND_VERIFICATION_RECORDS_NOT_YET_SERIALIZED",
+  "FULLSTACK_ZERO_PRIMARY_PROFILE_STILL_BLOCKS_FRAMEWORK_AND_SPECIALIZED_ALGORITHM_IMPLEMENTATION",
 ]
 
 # disposition meanings:
@@ -34,78 +32,78 @@ unresolved_items = [
 path = "src/lib.rs"
 file_id = "domain.root"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "6d1e7d06587eb0d8b6dbbeda1ea8074a5550f4beabb26a840e0c465d9936e6e5"
+disposition = "IMPLEMENTED_PENDING_FINAL_QUALIFICATION"
 candidate_primary_class = "CRATE_ROOT_LIBRARY"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Compose the domain crate policy, owned modules, and deliberate minimal public facade."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED; D01_D02_D05_EXECUTABLE_BEHAVIOR_VERIFIED_BEFORE_DOC_ONLY_ROOT_UPDATE; POST_DOC_UPDATE_CARGO_REQUALIFICATION_PENDING_SHARED_EXECUTOR; WORKSPACE_WIDE_TUPLE_RECONCILIATION_REMAINS_SEPARATE"
 
 [[unit]]
 path = "src/error.rs"
 file_id = "domain.error"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "9635708baabc9a623b46cb76f55cfa519001ee8cb772187f362faf1f28fe50ed"
+disposition = "IMPLEMENTED_PENDING_FINAL_QUALIFICATION"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent typed domain failures without erasing material causes."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_AND_D01_INCREMENT_QUALIFIED; EXACT_LIMIT_ERROR_CAUSE_BOUND; HOST_AND_DIRECT_WASM32_EVIDENCE_PASS"
 
 [[unit]]
 path = "src/limits.rs"
 file_id = "domain.limits"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "e379ba78629843be7142e7f188862e811fc1ac6d28b7fbf67160bd4c906ae8f9"
+disposition = "IMPLEMENTED_PENDING_FINAL_QUALIFICATION"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent finite validated limits that bound supported domain work."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_AND_D01_INCREMENT_QUALIFIED; POSITIVE_U32_LIMIT_INVARIANT_BOUND; HOST_TEST_AND_DIRECT_WASM32_EVIDENCE_PASS"
 
 [[unit]]
 path = "src/time.rs"
 file_id = "domain.time"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "fcfab38209d1dc9482a7251340279abfd6fa8336f5b2e0450e3aa7d62b2a3338"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "MODULE_FACADE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Compose and explicitly reexport scheduling-time primitives."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_D02_FACADE_RECHECK_PASS; HOST_TEST_CHECK_CLIPPY_PASS; DIRECT_WASM32_COMPILE_PASS"
 
 [[unit]]
 path = "src/time/error.rs"
 file_id = "domain.time.error"
-exists_now = false
-current_sha256 = "ABSENT"
-disposition = "PLANNED_NEW_UNIT"
+exists_now = true
+current_sha256 = "d1ec8e5f83e068556817b045f4c03a7dfc60a8006ee08d619ea22664ba62abbe"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent typed checked time-arithmetic failures."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_BEFORE_AND_AFTER_CREATION"
+classification_state = "IMPLEMENTED_D02_VALUE_TYPE_RECHECK_PASS; EXACT_ADDITION_MULTIPLICATION_SUBTRACTION_CAUSES_BOUND"
 
 [[unit]]
 path = "src/time/instant.rs"
 file_id = "domain.time.instant"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "6dca5508ffbc645d01d5153c947482177fc2b292a4b16b26c8161a785a1b7968"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent an abstract scheduling instant in integral ticks."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_D02_VALUE_TYPE_RECHECK_PASS; EXACT_U64_TICKS_AND_CHECKED_ARITHMETIC_BOUND"
 
 [[unit]]
 path = "src/time/duration.rs"
 file_id = "domain.time.duration"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "aaf5a2acbef359d2495aa231deac734786369b55f0ea3c8d1de6b4bb0f75d861"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "VALUE_TYPE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Represent an abstract scheduling duration in integral ticks."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_D02_VALUE_TYPE_RECHECK_PASS; EXACT_U64_TICKS_CHECKED_ADD_SUB_MUL_BOUND"
 
 [[unit]]
 path = "src/task.rs"
@@ -177,34 +175,34 @@ classification_state = "DELETION_REQUIRES_REFERENCE_CLOSURE_PROOF"
 path = "src/resource.rs"
 file_id = "domain.resource"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "1f99920b41656780835be3a490d48b099a12daf7eb255a766b06ec8b0f0d0df8"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "MODULE_FACADE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Compose bounded resource-state modules."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_D05_FACADE_RECHECK_PASS; HOST_TEST_CHECK_BUILD_CLIPPY_PASS; DIRECT_WASM32_COMPILE_PASS"
 
 [[unit]]
 path = "src/resource/capacity.rs"
 file_id = "domain.resource.capacity"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "5e20bbe34aa22e97351a139ef13634628d74c14eec4aadc4945791acd82c1f74"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "STATE_MACHINE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Own bounded capacity acquire and release transition semantics."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_D05_STATE_MACHINE_RECHECK_PASS; EXHAUSTION_AND_RELEASE_UNDERFLOW_ATOMICITY_TESTED"
 
 [[unit]]
 path = "src/resource/budget.rs"
 file_id = "domain.resource.budget"
 exists_now = true
-current_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-disposition = "KEEP_AND_IMPLEMENT_LATER"
+current_sha256 = "97ed21a971465bd3162672e141657df0cfefa8584d7ab90247daff56804f0f69"
+disposition = "IMPLEMENTED_AND_INCREMENT_QUALIFIED"
 candidate_primary_class = "STATE_MACHINE_MODULE"
 semantic_owner = "PURE_DOMAIN_SEMANTICS"
 purpose = "Own monotonic remaining-work budget consumption state."
-classification_state = "PLANNED_INTERFACE_RESOLVED_RECHECK_AFTER_IMPLEMENTATION"
+classification_state = "IMPLEMENTED_D05_STATE_MACHINE_RECHECK_PASS; EXHAUSTION_ATOMICITY_AND_DETERMINISM_TESTED"
 
 [[unit]]
 path = "src/validation.rs"
@@ -432,7 +430,7 @@ classification_state = "PLANNED_CLASS_RECHECK_AGAINST_ACTUAL_TRANSITION_OWNERSHI
 path = "tests/integration_tests.rs"
 candidate_primary_class = "INTEGRATION_TEST_ROOT"
 production_subject = "SOV_TIME_DOMAIN"
-status = "ZERO_BYTE_PLACEHOLDER"
+status = "IMPLEMENTED_D01_D02_D05; DIRECT_TEST_BINARY_COMPILE_AND_EXECUTION_PASS; HOST_CHECK_BUILD_CLIPPY_PASS; BYTE_IDENTICAL_WASM32_COMPILE_PASS; LIMIT_TIME_CAPACITY_BUDGET_BOUNDARY_BEHAVIOR_COVERED"
 
 [[test_unit]]
 path = "tests/property_tests.rs"

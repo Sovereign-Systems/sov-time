@@ -1,61 +1,165 @@
 <!--
-@version 0.1.0-draft.7
-@description Project overview, architecture, development status, and verification boundaries.
+@version 0.1.0-draft.8
+@description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
 # SOV-TIME
 
-Deterministic real-time scheduling and analysis engine in Rust, with a planned browser-based WebAssembly interface. UI framework selection remains under engineering review.
+**Deterministic, bounded real-time scheduling analysis and simulation in Rust.**
 
-## Status
+SOV-TIME is an engineering-focused Rust project for modeling periodic real-time workloads, evaluating schedulability, and producing deterministic scheduling simulations under explicit mathematical and resource bounds. A browser-based WebAssembly interface is planned as a separate hosted layer.
 
-Early development. The workspace scaffold exists; the scheduling engine and web application are not yet implemented or verified. No release, benchmark result, real-time guarantee, or certification is claimed.
+> **Project status:** active development. The low-level domain foundation is now partially implemented and verified, while task modeling, schedulers, schedulability analysis, simulation, and the browser application are still under construction. There is no production release, hardware real-time guarantee, WCET claim, safety certification, or security certification.
 
-## Objectives
+## What is implemented now
 
-- Model bounded sets of periodic tasks with explicit execution times, periods, and deadlines.
-- Analyze schedulability under explicitly documented scheduling models and assumptions.
-- Simulate scheduling decisions and deadline outcomes deterministically within caller-supplied resource limits.
-- Present analysis and simulation results through a browser application without making the domain engine depend on browser APIs.
+The current `sov-time-domain` foundation includes:
 
-The initial design targets a single-processor model. Supported scheduling policies, task models, arithmetic limits, and analysis assumptions will be documented and tested before they are advertised as implemented.
+- `Limit`: a validated strictly positive `u32` finite bound.
+- `Instant`: exact abstract `u64` scheduling ticks with checked addition/subtraction and duration calculation.
+- `Duration`: exact abstract `u64` ticks with checked addition, subtraction, and multiplication.
+- `TimeArithmeticError`: distinct addition-overflow, multiplication-overflow, and subtraction-underflow failures.
+- `CapacityState`: bounded acquire/release accounting with atomic failure semantics.
+- `Budget`: monotonic bounded work accounting with explicit exhaustion.
+- `#![no_std]` domain source with no external crate dependencies in the current foundation manifest.
+- typed failure paths with no ordinary `unwrap()`, `expect()`, panic fallback, wrapping arithmetic, saturation, or magic sentinels.
+
+The implemented foundation has been exercised through host formatting, compilation, build, Clippy checks, direct integration-test execution, and direct `wasm32-unknown-unknown` compilation for the exact implemented source increments. These checks do **not** establish a complete workspace release or a global no-heap/WCET guarantee.
+
+## Target model: v0.1
+
+The initial mathematical model is deliberately narrow and explicit:
+
+- one preemptive uniprocessor;
+- independent periodic tasks;
+- first release at tick `0`;
+- abstract nonnegative integer ticks;
+- constrained deadlines with `C <= D <= T`;
+- no release offsets or jitter;
+- no blocking or suspension;
+- no precedence constraints;
+- no multiprocessor or parallel execution;
+- no modeled context-switch overhead;
+- no wall-clock, timezone, or physical-unit conversion inside the domain model.
+
+Planned scheduling policies are:
+
+- **EDF** — Earliest Deadline First;
+- **RM** — Rate Monotonic;
+- **DM** — Deadline Monotonic.
+
+Schedulability analysis and simulation remain distinct: a simulation trace is never treated as a general mathematical proof of schedulability.
+
+## Design principles
+
+SOV-TIME is being built around a small set of non-negotiable engineering properties:
+
+1. **Deterministic semantics** — equivalent explicit inputs must not depend on ambient clock, randomness, filesystem state, network state, or browser state.
+2. **Checked arithmetic** — representational failure is explicit and typed; arithmetic does not silently wrap, saturate, clamp, or invent a fallback value.
+3. **Bounded work and state** — task counts, proof work, simulation steps, timeline output, and import size are governed by explicit finite limits.
+4. **Failure preservation** — invalid input, arithmetic failure, resource exhaustion, unsupported models, inconclusive analysis, and proven unschedulability remain semantically distinct.
+5. **Layer separation** — browser/UI effects do not leak into the pure scheduling domain.
+6. **Private-by-default APIs** — public surface is introduced only for an identified consumer contract.
+7. **Target-specific evidence** — host success is not substituted for browser/WASM, resource, timing, or release evidence.
 
 ## Architecture
 
+Dependency direction below is **consumer → dependency**:
+
+```text
+crates/application      -> crates/domain
+crates/application      -> crates/contracts
+crates/browser_interop  -> crates/contracts
+crates/web_ui           -> crates/application
+crates/web_ui           -> crates/contracts
+crates/web_ui           -> crates/browser_interop
+apps/web                -> crates/web_ui
+```
+
 | Component | Responsibility |
 | --- | --- |
-| `crates/domain` | Pure scheduling, analysis, bounded simulation, and domain invariants |
-| `crates/application` | Use-case orchestration and scenario evaluation |
-| `crates/contracts` | Validated, versioned data contracts |
-| `crates/browser_interop` | Browser-specific input/output effects |
-| `crates/web_ui` | Browser presentation, routing, and interaction; framework selection pending |
-| `apps/web` | Web application entry point |
+| `crates/domain` | Pure domain values, invariants, scheduling, analysis, and bounded simulation |
+| `crates/contracts` | Versioned bounded external/import/export representations |
+| `crates/application` | Use-case orchestration and conversion between contracts and domain values |
+| `crates/browser_interop` | Browser-specific file/input/output effects |
+| `crates/web_ui` | Browser presentation, routing, and interaction state |
+| `apps/web` | Web application entry/composition |
 
-The foundation is designed for `no_std` and no allocation, including its runtime dependency graph. The hosted web layer has a separate resource and dependency boundary. The complete browser application is not claimed to be allocation-free.
+The browser UI framework has not yet been admitted into the production dependency graph. The initial product direction is a client-side Rust/WASM application with no required backend, database, server functions, or remote API for the core scheduling workflow.
 
-## Engineering requirements
+## Resource profile
 
-- Explicit arithmetic, capacity, termination, and failure semantics.
-- No first-party `mod.rs`, `unwrap()`, `expect()`, or equivalent silent panic shortcuts.
-- Typed errors and documented public API contracts.
-- Explicit component ownership and dependency direction.
-- Verification of the actual target and feature graph before resource or portability claims.
-- Distinct evidence for host tests, target builds, model checking, benchmarks, and browser tests.
+The current v0.1 working model binds these project-level limits:
 
-## Development
+| Resource | Bound |
+| --- | ---: |
+| Tasks | 32 |
+| Ready jobs | 32 |
+| Active jobs | 32 |
+| Timeline segments | 16,384 |
+| Analysis work units | 1,048,576 |
+| Simulation semantic steps | 65,536 |
+| Hosted import tasks | 32 |
+| Hosted import bytes | 65,536 |
 
-The repository is currently a scaffold. Do not interpret the presence of a source path as an implemented feature.
+These are semantic/resource bounds. They are **not** hardware timing or WCET measurements.
 
-The root toolchain configuration selects Rust 1.99.1, and `rustfmt.toml` selects Rust 2024 parsing and formatting style. Project-bound qualification verified Rust 1.99.1 compiler and Cargo execution, rustfmt and Clippy identities, the installed host target, and `wasm32-unknown-unknown` target support. The Clippy configuration disallows exemptions for `unwrap` and `expect` in tests and const contexts and declares an empty allowed-type list; isolated negative fixtures verified that the selected `unwrap_used` and `expect_used` deny rules reject prohibited calls, followed by a clean Clippy pass after restoration. These root-level checks do not imply that the still-empty member crates or complete workspace build have been verified.
+## Repository layout
 
-Build and test commands will be published after the workspace manifests, toolchain, target matrix, and verification requirements have been established. Before a build, verify the effective destinations of compiler artifacts, Cargo caches and temporary files against the project-local output boundary.
+```text
+apps/web/                   Browser application entry point
+crates/domain/              Pure scheduling-domain foundation
+crates/application/         Use-case orchestration
+crates/contracts/           Versioned external contracts
+crates/browser_interop/     Browser effect boundary
+crates/web_ui/              Browser presentation
+docs/                       Architecture, model, error and verification records
+governance/                 Project-bound engineering/verification records
+```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development rules and [SECURITY.md](SECURITY.md) for security reporting.
+## Current development roadmap
 
-## Limitations
+The implementation sequence is dependency-driven:
 
-Scheduling analysis is valid only under its stated mathematical assumptions. A simulated schedule is not evidence of hardware timing, worst-case execution time, or suitability for a safety-critical deployment. Those claims require separate target-specific evidence.
+- [x] validated finite limit foundation;
+- [x] abstract checked time primitives;
+- [x] bounded capacity and work-budget state;
+- [ ] stable task identity and relative deadlines;
+- [ ] validated periodic task parameters and bounded task sets;
+- [ ] EDF / RM / DM policy ordering;
+- [ ] exact utilization and fixed-priority response-time analysis;
+- [ ] constrained-deadline EDF demand-bound analysis;
+- [ ] deterministic bounded simulation and timeline generation;
+- [ ] application and versioned contract layers;
+- [ ] browser interop and Rust/WASM UI;
+- [ ] end-to-end release verification and public release.
+
+One current design dependency remains intentionally unresolved: the exact fixed-width backing type for `TaskId` has not yet been bound. The implementation does not guess that contract.
+
+## Toolchain and verification
+
+- Rust: **1.99.1**
+- Edition: **2024**
+- Primary browser target: `wasm32-unknown-unknown`
+- Workspace lint policy forbids unsafe code and denies `unwrap`, `expect`, `panic`, `todo`, `unimplemented`, unchecked arithmetic-side-effect patterns, and unchecked indexing/slicing patterns in governed first-party code.
+
+The complete six-member workspace is **not yet release-qualified** because several higher layers remain scaffold/in-progress. Build instructions will be promoted here when the complete workspace graph is compile-ready and its target/profile gates are satisfied.
+
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Mathematical model](docs/MATHEMATICAL_MODEL.md)
+- [Memory and resource model](docs/MEMORY_MODEL.md)
+- [Error model](docs/ERROR_MODEL.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+
+## Important limitations
+
+SOV-TIME models and analyzes scheduling semantics. It does not measure execution time on your hardware, prove WCET from source code, certify a system as safe, or establish that an arbitrary real system satisfies the model assumptions.
+
+Any future production claim must be tied to the exact source revision, target, dependency graph, configuration, mathematical assumptions, and verification evidence that support it.
 
 ## License
 
-SOV-TIME is licensed under the MIT License. See [LICENSE](LICENSE) for the exact terms. This license does not imply a production-ready release or authorization to publish development changes.
+Licensed under the [MIT License](LICENSE).
