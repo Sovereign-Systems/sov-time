@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.4
+@version 0.1.0-draft.5
 @description Contribution boundaries, source ownership, and verification requirements.
 -->
 
@@ -30,6 +30,8 @@ Use `name.rs` and `name/child.rs` for filesystem-backed modules with children. D
 Keep domain logic independent of hosted application and browser dependencies. Make capacity, arithmetic, resource, error, and termination constraints explicit. Do not introduce dependencies solely for convenience without evaluating their applicable build and runtime graphs.
 
 ## Verification
+
+The repository is under staged construction. Several higher-layer workspace members remain scaffold/in-progress, so a complete root-workspace build is not yet advertised as a supported release path. Verify the exact component and target affected by your contribution, and report any broader workspace limitation separately instead of treating an unrelated scaffold as evidence about the changed component.
 
 For each behavioral change:
 
