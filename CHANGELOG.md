@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.9
+@version 0.1.0-draft.11
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -17,11 +17,13 @@ This file records project changes. Entries under Unreleased describe development
 - Single-branch Git initialization using `main`.
 - Workspace directory scaffold separating the domain, application, contracts, browser interoperability, web interface, and web entry point.
 - Published root virtual Cargo workspace plus project-local Cargo target output configuration under `.local/target`.
+- Public project overview now treats the browser UI framework as pending engineering selection instead of an admitted dependency, and avoids assuming an arbitrary stored task-priority field.
 - Initial project overview, contribution requirements, and security reporting guidance.
 - Exact Rust 1.99.1 toolchain selection in the root configuration, with project-bound verification of rustc, Cargo, rustfmt, Clippy, the host target, and `wasm32-unknown-unknown`; complete member/workspace build verification remains pending.
 - Verified Git ignore behavior for project-local build outputs, local evidence, private source bindings, environment files, and the unpublished internal `plan.md`. Cargo.lock and Cargo manifests remain eligible for tracking.
 - Rust 2024 parsing and style edition selection in `rustfmt.toml`; TOML syntax verified.
 - Explicit Clippy configuration excluding `unwrap` and `expect` exemptions; isolated negative fixtures verified effective `unwrap_used` and `expect_used` rejection, followed by a clean Clippy pass after source restoration.
+- Contribution guidance now distinguishes prohibited ordinary panic-shortcut usage from isolated intentionally invalid rejection fixtures used solely to prove checker enforcement.
 
 - MIT License selected under delegated owner authority and written to `LICENSE`; the published root Cargo workspace metadata declares `license = "MIT"` consistently.
 

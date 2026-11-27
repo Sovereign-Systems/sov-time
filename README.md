@@ -1,11 +1,11 @@
 <!--
-@version 0.1.0-draft.6
+@version 0.1.0-draft.7
 @description Project overview, architecture, development status, and verification boundaries.
 -->
 
 # SOV-TIME
 
-Deterministic real-time scheduling and analysis engine in Rust, with a planned browser-based WebAssembly and Dioxus interface.
+Deterministic real-time scheduling and analysis engine in Rust, with a planned browser-based WebAssembly interface. UI framework selection remains under engineering review.
 
 ## Status
 
@@ -13,7 +13,7 @@ Early development. The workspace scaffold exists; the scheduling engine and web 
 
 ## Objectives
 
-- Model bounded sets of periodic tasks with explicit execution times, periods, deadlines, and priorities.
+- Model bounded sets of periodic tasks with explicit execution times, periods, and deadlines.
 - Analyze schedulability under explicitly documented scheduling models and assumptions.
 - Simulate scheduling decisions and deadline outcomes deterministically within caller-supplied resource limits.
 - Present analysis and simulation results through a browser application without making the domain engine depend on browser APIs.
@@ -28,7 +28,7 @@ The initial design targets a single-processor model. Supported scheduling polici
 | `crates/application` | Use-case orchestration and scenario evaluation |
 | `crates/contracts` | Validated, versioned data contracts |
 | `crates/browser_interop` | Browser-specific input/output effects |
-| `crates/web_ui` | Dioxus presentation and interaction |
+| `crates/web_ui` | Browser presentation, routing, and interaction; framework selection pending |
 | `apps/web` | Web application entry point |
 
 The foundation is designed for `no_std` and no allocation, including its runtime dependency graph. The hosted web layer has a separate resource and dependency boundary. The complete browser application is not claimed to be allocation-free.

@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.2
+@version 0.1.0-draft.3
 @description Contribution boundaries, source ownership, and verification requirements.
 -->
 
@@ -23,7 +23,7 @@ First-party Rust files use the source identity marker:
 
 The marker identifies the file and its purpose. It does not replace module documentation, public API documentation, or the corresponding structure registry entry.
 
-Use `name.rs` and `name/child.rs` for filesystem-backed modules with children. Do not introduce `mod.rs`. Do not introduce `unwrap()`, `expect()`, or equivalent panic-on-failure shortcuts in first-party code, including tests.
+Use `name.rs` and `name/child.rs` for filesystem-backed modules with children. Do not introduce `mod.rs`. Do not use `unwrap()`, `expect()`, or equivalent panic-on-failure shortcuts as ordinary first-party implementation or test logic. An isolated intentionally invalid rejection fixture may contain a prohibited construct only when its purpose is to prove that the configured checker rejects that construct, the expected rejection is asserted, and the fixture cannot enter production reachability.
 
 Keep domain logic independent of hosted application and browser dependencies. Make capacity, arithmetic, resource, error, and termination constraints explicit. Do not introduce dependencies solely for convenience without evaluating their applicable build and runtime graphs.
 
