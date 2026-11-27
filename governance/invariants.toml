@@ -1,0 +1,309 @@
+# SOV-TIME F10 invariant registry — v0.1 working record.
+# Planned verification obligations are not executed evidence.
+
+schema_version = "0.1.0-draft.3"
+project_id = "SOV-TIME"
+record_state = "OWNER_BOUND_PHASE_F_WORKING_RECORD"
+resource_profile_sha256 = "38553424ef1a9df1e732cb49b0e1085a8eca01d8d3b135ad0b021dd267d537c0"
+owner_binding_packet_sha256 = "b5527b29e6ddd1774d11c4386ef14eadbb9c1431155e24f1f610385930749940"
+mathematical_model_sha256 = "aad310121f0bb9624b54f0f309a8a2999a53c67b5c617c547c2d48b54d76b76a"
+memory_model_sha256 = "856ecee536242289414f71f703858226da38a992073264d137654dd3a363b78c"
+error_model_sha256 = "1d4ff4716b7ce10af4fa89fb0d577204ce94666b065eb26f672694620c9a88ec"
+owner_deadline_miss_policy = "TERMINATE_ON_FIRST_MISS"
+evaluated_project_head = "e038f22f1f5cd5a46d52a40c66f30eff3e7ba859"
+
+[[invariant]]
+id = "INV-TIME-001"
+name = "EXACT_TIME_VALUE"
+owner = "domain.time"
+statement = "Representable abstract tick values preserve their exact integer value."
+verification = ["BOUNDARY_VALUE_TEST", "PROPERTY_ARITHMETIC_REFERENCE"]
+
+[[invariant]]
+id = "INV-TIME-002"
+name = "CHECKED_TIME_ARITHMETIC"
+owner = "domain.time"
+statement = "Time arithmetic never wraps, saturates, panics, or silently substitutes a value on overflow or underflow."
+verification = ["OVERFLOW_UNDERFLOW_NEGATIVE_TEST", "PROPERTY_ARITHMETIC_REFERENCE"]
+
+[[invariant]]
+id = "INV-TASK-001"
+name = "POSITIVE_C_T"
+owner = "domain.task.parameters"
+statement = "Execution demand C and period T are strictly positive for every constructed task."
+verification = ["CONSTRUCTOR_BOUNDARY_TEST"]
+
+[[invariant]]
+id = "INV-TASK-002"
+name = "C_LE_D_LE_T"
+owner = "domain.task.parameters"
+statement = "Every constructed v0.1 task satisfies C <= D <= T with D already positive."
+verification = ["CONSTRUCTOR_BOUNDARY_TEST", "EQUALITY_BOUNDARY_TEST"]
+
+[[invariant]]
+id = "INV-TASK-003"
+name = "UNIQUE_STABLE_ID"
+owner = "domain.task.set"
+statement = "Every TaskSet contains unique stable TaskId values and identity does not depend on storage position."
+verification = ["DUPLICATE_REJECTION_TEST", "PERMUTATION_TEST"]
+
+[[invariant]]
+id = "INV-SET-001"
+name = "BOUNDED_CARDINALITY"
+owner = "domain.task.set"
+statement = "TaskSet cardinality never exceeds the admitted explicit bound."
+verification = ["BELOW_AT_ABOVE_LIMIT_TEST"]
+
+[[invariant]]
+id = "INV-SET-002"
+name = "REJECTION_ATOMICITY"
+owner = "domain.task.set"
+statement = "Rejected TaskSet construction does not mutate caller-owned input or return a partial valid view."
+verification = ["NEGATIVE_ATOMICITY_TEST"]
+
+[[invariant]]
+id = "INV-ORDER-001"
+name = "TOTAL_POLICY_ORDER"
+owner = "domain.scheduler"
+statement = "Each admitted scheduling policy has a deterministic total order including TaskId tie-break."
+verification = ["POLICY_COMPARATOR_TEST", "EQUAL_PRIMARY_KEY_TEST"]
+
+[[invariant]]
+id = "INV-ORDER-002"
+name = "INPUT_PERMUTATION_INVARIANCE"
+owner = "domain.scheduler"
+statement = "Where semantics claim set-order independence, permutation of equivalent valid input does not change the semantic decision."
+verification = ["BOUNDED_PERMUTATION_TEST"]
+
+[[invariant]]
+id = "INV-PURITY-001"
+name = "EXPLICIT_INPUT_ONLY"
+owner = "SOV_TIME_DOMAIN"
+statement = "Domain behavior depends only on explicit validated input and admitted local state, not ambient clock, environment, browser, filesystem, network, randomness, or telemetry."
+verification = ["EFFECT_REVIEW", "DEPENDENCY_GRAPH_REVIEW", "REPEATABILITY_TEST"]
+
+[[invariant]]
+id = "INV-DET-001"
+name = "REPEATABILITY"
+owner = "SOV_TIME_DOMAIN"
+statement = "Identical explicit inputs and configuration produce identical semantic values, outcomes, and traces."
+verification = ["REPEATED_RUN_TEST", "PROPERTY_DETERMINISM"]
+
+[[invariant]]
+id = "INV-TERM-001"
+name = "FINITE_BOUND_OR_VARIANT"
+owner = "SOV_TIME_DOMAIN"
+statement = "Every iterative domain operation has a proved finite variant or explicit caller/project Budget bound."
+verification = ["VARIANT_REVIEW", "BUDGET_EXHAUSTION_TEST"]
+
+[[invariant]]
+id = "INV-MEM-001"
+name = "BOUNDED_STATE"
+owner = "SOV_TIME_DOMAIN"
+statement = "Production domain state and caller scratch are bounded for each supported exact tuple; no heap claim is made without graph/target evidence."
+verification = ["STRUCTURE_REVIEW", "DEPENDENCY_GRAPH", "TARGET_BUILD", "NO_HEAP_EVIDENCE", "AT_LIMIT_TEST"]
+
+[[invariant]]
+id = "INV-AN-001"
+name = "APPLICABILITY_BEFORE_VERDICT"
+owner = "domain.analysis"
+statement = "An exact schedulability verdict is emitted only after the input model is shown to satisfy the selected theorem assumptions."
+verification = ["UNSUPPORTED_MODEL_TEST", "MODEL_DISPATCH_REVIEW"]
+
+[[invariant]]
+id = "INV-AN-002"
+name = "BUDGET_EXHAUSTION_IS_INCONCLUSIVE"
+owner = "domain.analysis"
+statement = "Finite proof-budget exhaustion with valid arithmetic yields Inconclusive and never Unschedulable."
+verification = ["SMALL_BUDGET_NEGATIVE_TEST"]
+
+[[invariant]]
+id = "INV-RTA-001"
+name = "MONOTONIC_ITERATION"
+owner = "domain.analysis.response_time"
+statement = "The admitted fixed-priority response-time recurrence follows the exact checked recurrence for the selected higher-priority set."
+verification = ["INDEPENDENT_ITERATE_CAPTURE", "RTA_FIXED_VECTOR"]
+
+[[invariant]]
+id = "INV-RTA-002"
+name = "FIXED_POINT_VALIDITY"
+owner = "domain.analysis.response_time"
+statement = "Schedulable is emitted for a task only at a recurrence fixed point not exceeding its deadline; a deadline-exceeding iterate yields an exact miss witness."
+verification = ["FIXED_POINT_SUBSTITUTION", "RTA_FIXED_VECTOR"]
+
+[[invariant]]
+id = "INV-DBF-001"
+name = "DEMAND_MONOTONICITY"
+owner = "domain.analysis.demand_bound"
+statement = "Per-task and aggregate demand follow the exact checked constrained-deadline DBF over evaluated candidate points."
+verification = ["INDEPENDENT_DBF_EVALUATOR", "DBF_FIXED_VECTOR"]
+
+[[invariant]]
+id = "INV-DBF-002"
+name = "WITNESS_VALIDITY"
+owner = "domain.analysis.demand_bound"
+statement = "An EDF unschedulability witness identifies an evaluated interval with exact aggregate demand greater than interval capacity."
+verification = ["WITNESS_RECOMPUTE", "DBF_FIXED_VECTOR"]
+
+[[invariant]]
+id = "INV-DBF-003"
+name = "COMPLETE_POINT_COVERAGE_THROUGH_A"
+owner = "domain.analysis.demand_bound"
+statement = "Schedulable is emitted only after all required absolute-deadline candidate points through the proved synchronous busy-period bound have been evaluated."
+verification = ["INDEPENDENT_BOUNDED_ENUMERATOR", "COVERAGE_ACCOUNTING"]
+
+[[invariant]]
+id = "INV-SCHED-001"
+name = "WORK_CONSERVATION"
+owner = "domain.simulation"
+statement = "The processor is not recorded idle while a runnable admitted job should execute under the selected policy."
+verification = ["TRACE_INSPECTION"]
+
+[[invariant]]
+id = "INV-SCHED-002"
+name = "DISPATCH_LEGALITY"
+owner = "domain.scheduler"
+statement = "Every dispatch selects the highest-ranked currently runnable job under the explicit total policy order."
+verification = ["TRACE_STATE_CROSSCHECK"]
+
+[[invariant]]
+id = "INV-SCHED-003"
+name = "RELEASE_CAUSALITY"
+owner = "domain.simulation"
+statement = "A job cannot execute before its modeled release and release processing obeys same-timestamp semantics."
+verification = ["TRACE_STATE_CROSSCHECK", "RELEASE_BOUNDARY_TEST"]
+
+[[invariant]]
+id = "INV-SCHED-004"
+name = "EXECUTION_CONSERVATION"
+owner = "domain.simulation"
+statement = "Recorded running intervals and job remaining-execution transitions conserve modeled execution demand."
+verification = ["TRACE_EXECUTION_SUM"]
+
+[[invariant]]
+id = "INV-SIM-001"
+name = "EXACT_COVERAGE_AND_TERMINATION"
+owner = "domain.simulation"
+statement = "CompletedHorizon is emitted only after all required transitions/deadline obligations through the horizon are processed and requested trace coverage reaches the horizon."
+verification = ["HORIZON_FIXTURE", "TRACE_COVERAGE_CHECK"]
+
+[[invariant]]
+id = "INV-SIM-002"
+name = "TIMELINE_PARTITION"
+owner = "domain.simulation.timeline"
+statement = "Semantic timeline segments are ordered, nonoverlapping, gap-free over covered time, and contain no zero-length segment."
+verification = ["TIMELINE_STRUCTURE_TEST"]
+
+[[invariant]]
+id = "INV-SIM-003"
+name = "DEADLINE_ENDPOINT"
+owner = "domain.simulation"
+statement = "Completion exactly at a deadline is success and due-deadline evaluation precedes same-timestamp new release admission."
+verification = ["DEADLINE_ENDPOINT_TEST"]
+
+[[invariant]]
+id = "INV-SIM-004"
+name = "HORIZON_NONCLAIM"
+owner = "domain.simulation"
+statement = "The simulation makes no claim about releases or execution outside the requested half-open horizon."
+verification = ["HORIZON_BOUNDARY_TEST"]
+
+[[invariant]]
+id = "INV-SIM-005"
+name = "TERMINATION_TOTALITY"
+owner = "domain.simulation"
+statement = "Every engine exit is exactly one explicit termination state or typed error; no implicit success sentinel exists."
+verification = ["TERMINATION_ENUMERATION_TEST"]
+
+[[invariant]]
+id = "INV-ERR-001"
+name = "FAILURE_PRESERVATION"
+owner = "SOV_TIME_DOMAIN"
+statement = "Material failure causes remain typed and failed state transitions preserve their pre-call state."
+verification = ["ERROR_IDENTITY_TEST", "NEGATIVE_ATOMICITY_TEST"]
+
+[[invariant]]
+id = "INV-MAP-001"
+name = "SEMANTIC_PRESERVATION"
+owner = "SOV_TIME_APPLICATION"
+statement = "Mapping across domain/application/contracts/UI preserves error-versus-outcome distinctions, variants, witnesses, and material causes."
+verification = ["EXHAUSTIVE_MAPPING_TABLE_TEST"]
+
+[[invariant]]
+id = "INV-CROSS-001"
+name = "ANALYSIS_SIMULATION_CROSSCHECK"
+owner = "SOV_TIME_DOMAIN"
+statement = "Selected small exact analysis/simulation vectors may cross-check regressions, but simulation is never treated as a general proof of schedulability."
+verification = ["FIXED_VECTOR_CROSSCHECK"]
+
+
+[[invariant]]
+id = "INV-SIM-006"
+name = "FIRST_MISS_TERMINATION"
+owner = "domain.simulation"
+statement = "Under the owner-selected v0.1 policy, the first due incomplete job terminates simulation with a deterministic DeadlineMiss witness before any same-timestamp new release is admitted."
+verification = ["FIRST_MISS_WITNESS_TEST", "SAME_TIMESTAMP_MISS_BEFORE_RELEASE_TEST"]
+
+[[invariant]]
+id = "INV-SIM-007"
+name = "ONE_LIVE_JOB_PER_TASK"
+owner = "domain.simulation.state"
+statement = "Under D<=T and first-miss termination, every continuing simulation state contains at most one live job for each admitted task."
+verification = ["BOUNDED_STATE_PROPERTY_TEST", "SAME_TASK_SUCCESSOR_RELEASE_TEST"]
+
+
+[[invariant]]
+id = "INV-RES-001"
+name = "TASK_CAPACITY_32"
+owner = "domain.task.set"
+statement = "Under the owner-bound v0.1 resource profile, admitted TaskSet cardinality never exceeds 32."
+verification = ["T-RES-TASK-032", "T-RES-TASK-033"]
+
+[[invariant]]
+id = "INV-RES-002"
+name = "ACTIVE_READY_CAPACITY_32"
+owner = "domain.simulation.state"
+statement = "Under first-miss semantics and the owner-bound v0.1 resource profile, live/ready job cardinality never exceeds admitted task count and therefore never exceeds 32."
+verification = ["P-SIM-B-LIVEJOB-001", "T-RES-ACTIVE-032"]
+
+[[invariant]]
+id = "INV-RES-003"
+name = "IMPORT_BYTE_BOUND_65536"
+owner = "browser_interop.file_import"
+statement = "Raw imported input greater than 65,536 bytes is rejected before full decode/parse under the owner-bound v0.1 resource profile."
+verification = ["T-RES-IMPORT-65536", "T-RES-IMPORT-65537"]
+
+[[invariant]]
+id = "INV-RES-004"
+name = "ANALYSIS_BUDGET_BOUND_1048576"
+owner = "domain.analysis"
+statement = "Analysis Budget requests are positive and at most 1,048,576 work units; exhaustion before proof yields Inconclusive."
+verification = ["T-RES-ANALYSIS-000", "T-RES-ANALYSIS-MAX", "T-RES-ANALYSIS-OVER", "T-AN-004"]
+
+[[invariant]]
+id = "INV-RES-005"
+name = "SIMULATION_STEP_BOUND_65536"
+owner = "domain.simulation"
+statement = "Simulation step Budget requests are positive and at most 65,536 semantic timestamp transitions; exhaustion occurs before an unbudgeted transition commit."
+verification = ["T-RES-SIM-000", "T-RES-SIM-MAX", "T-RES-SIM-OVER", "T-SIM-004"]
+
+[[invariant]]
+id = "INV-RES-006"
+name = "TIMELINE_CAPACITY_16384"
+owner = "domain.simulation.timeline"
+statement = "Timeline capacity requests are positive and at most 16,384 segments; required nonmerge growth at capacity fails without partial commit."
+verification = ["T-RES-TIMELINE-000", "T-RES-TIMELINE-MAX", "T-RES-TIMELINE-OVER"]
+
+[[invariant]]
+id = "INV-RES-007"
+name = "LIMIT_U32_FIXED_WIDTH"
+owner = "domain.resource.limit"
+statement = "Limit/capacity semantic storage uses fixed-width u32 and checked conversion at architecture-dependent indexing boundaries."
+verification = ["T-RES-LIMIT-U32"]
+
+[[invariant]]
+id = "INV-RES-008"
+name = "EXTERNAL_TIME_UNIT_TICK_ONLY"
+owner = "contracts.scenario"
+statement = "The owner-bound v0.1 external time-unit set is exactly TICK and unknown physical-unit identifiers are rejected."
+verification = ["T-RES-UNIT-TICK", "T-RES-UNIT-OTHER"]

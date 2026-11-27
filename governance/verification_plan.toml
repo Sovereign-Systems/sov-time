@@ -1,0 +1,527 @@
+# SOV-TIME F10 verification plan — v0.1 working record.
+# Planned test cases are obligations, not executed evidence.
+
+schema_version = "0.1.0-draft.4"
+project_id = "SOV-TIME"
+record_state = "OWNER_BOUND_PHASE_F_WORKING_RECORD"
+resource_profile_sha256 = "38553424ef1a9df1e732cb49b0e1085a8eca01d8d3b135ad0b021dd267d537c0"
+owner_binding_packet_sha256 = "b5527b29e6ddd1774d11c4386ef14eadbb9c1431155e24f1f610385930749940"
+invariants_sha256 = "919bcc8e853a13eca1ce8bd4215396e1a7caa0405c5e40f5dd6016798a9e24e2"
+mathematical_model_sha256 = "aad310121f0bb9624b54f0f309a8a2999a53c67b5c617c547c2d48b54d76b76a"
+memory_model_sha256 = "856ecee536242289414f71f703858226da38a992073264d137654dd3a363b78c"
+error_model_sha256 = "1d4ff4716b7ce10af4fa89fb0d577204ce94666b065eb26f672694620c9a88ec"
+owner_deadline_miss_policy = "TERMINATE_ON_FIRST_MISS"
+evaluated_project_head = "e038f22f1f5cd5a46d52a40c66f30eff3e7ba859"
+
+[discipline]
+behavioral_change_requires_observed_red_before_green = true
+production_expected_value_must_not_be_generated_by_function_under_test = true
+zero_required_cases_executed_is_pass = false
+host_test_substitutes_for_target_build = false
+simulation_substitutes_for_schedulability_proof = false
+clippy_substitutes_for_semantic_test = false
+target_build_substitutes_for_browser_runtime_test = false
+no_findings_proves_unchecked_properties = false
+record_discovered_executed_skipped_filtered_counts = true
+
+[[suite]]
+id = "SUITE_TIME"
+evidence_class = "HOST_UNIT_PROPERTY_PLUS_TARGET_CHECK"
+case_ids = ["T-TIME-001","T-TIME-002","T-TIME-003","T-TIME-004","T-TIME-005","T-TIME-006","T-TIME-007","T-TIME-008","T-TIME-009","T-TIME-010"]
+invariant_ids = ["INV-TIME-001","INV-TIME-002","INV-PURITY-001","INV-DET-001"]
+required_negative_cases = ["T-TIME-003","T-TIME-004","T-TIME-009"]
+
+[[suite]]
+id = "SUITE_TASK"
+evidence_class = "HOST_UNIT_PROPERTY_PLUS_TARGET_CHECK"
+case_ids = ["T-TASK-001","T-TASK-002","T-TASK-003","T-TASK-004","T-TASK-005","T-TASK-006","T-TASK-007","T-TASK-008","T-TASK-009","T-TASK-010"]
+invariant_ids = ["INV-TASK-001","INV-TASK-002","INV-TASK-003","INV-SET-001","INV-SET-002","INV-ORDER-002"]
+required_negative_cases = ["T-TASK-002","T-TASK-003","T-TASK-006","T-TASK-007"]
+
+[[suite]]
+id = "SUITE_POLICY"
+evidence_class = "HOST_UNIT_PROPERTY"
+case_ids = ["T-POLICY-001","T-POLICY-002","T-POLICY-003","T-POLICY-004","T-POLICY-005"]
+invariant_ids = ["INV-ORDER-001","INV-ORDER-002","INV-DET-001"]
+required_negative_cases = []
+
+[[suite]]
+id = "SUITE_SIMULATION"
+evidence_class = "HOST_INTEGRATION_PROPERTY_PLUS_TARGET_CHECK"
+case_ids = ["T-SIM-001","T-SIM-002","T-SIM-003","T-SIM-004","T-SIM-005","T-SIM-006","T-SIM-B-MISS-001","T-SIM-B-MISS-002","P-SIM-B-LIVEJOB-001"]
+invariant_ids = ["INV-SCHED-001","INV-SCHED-002","INV-SCHED-003","INV-SCHED-004","INV-SIM-001","INV-SIM-002","INV-SIM-003","INV-SIM-004","INV-SIM-005","INV-SIM-006","INV-SIM-007","INV-ERR-001","INV-DET-001"]
+required_negative_cases = ["T-SIM-004","T-SIM-005","T-SIM-B-MISS-001","T-SIM-B-MISS-002"]
+
+[[suite]]
+id = "SUITE_ANALYSIS"
+evidence_class = "HOST_UNIT_PROPERTY_PLUS_INDEPENDENT_MATHEMATICAL_ORACLE"
+case_ids = ["T-AN-001","T-AN-002","T-AN-003","T-AN-004","T-AN-005","RTA-V001","RTA-V002","RTA-V003","RTA-V004","EDF-DBF-V001","EDF-DBF-V002","EDF-U-V001","EDF-U-V002"]
+invariant_ids = ["INV-AN-001","INV-AN-002","INV-RTA-001","INV-RTA-002","INV-DBF-001","INV-DBF-002","INV-DBF-003","INV-ERR-001"]
+required_negative_cases = ["T-AN-002","T-AN-003","T-AN-004","T-AN-005","RTA-V002","RTA-V004","EDF-DBF-V001","EDF-U-V002"]
+
+[[suite]]
+id = "SUITE_PROPERTY_REGRESSION"
+evidence_class = "PROPERTY_AND_REGRESSION"
+case_ids = ["P-DET-001","P-BOUND-001","P-ARITH-001","P-TERM-001","R-ARITH-001","R-DEADLINE-001"]
+invariant_ids = ["INV-DET-001","INV-MEM-001","INV-TIME-002","INV-TERM-001","INV-ERR-001"]
+required_negative_cases = ["P-BOUND-001","P-ARITH-001","P-TERM-001"]
+
+[[suite]]
+id = "SUITE_STRUCTURE_API"
+evidence_class = "FILESYSTEM_AST_COMPILER_CARGO_GRAPH"
+case_ids = ["C-API-001","C-STRUCT-001","C-STRUCT-002","C-STRUCT-003"]
+invariant_ids = ["INV-MEM-001","INV-ERR-001"]
+required_negative_cases = ["C-API-001","C-STRUCT-001","C-STRUCT-002","C-STRUCT-003"]
+
+[[suite]]
+id = "SUITE_MAPPING"
+evidence_class = "HOST_UNIT_INTEGRATION"
+case_ids = ["MAP-001"]
+invariant_ids = ["INV-MAP-001"]
+required_negative_cases = ["MAP-001"]
+
+[[suite]]
+id = "SUITE_CROSSCHECK"
+evidence_class = "FIXED_VECTOR_REGRESSION_ONLY"
+case_ids = ["CROSS-001"]
+invariant_ids = ["INV-CROSS-001"]
+required_negative_cases = []
+
+[[case]]
+id = "T-TIME-001"
+oracle = "0 and u64::MAX preserve exact tick values"
+forbidden_effect = "validation failure or external effect"
+
+[[case]]
+id = "T-TIME-002"
+oracle = "largest nonoverflowing checked additions produce u64::MAX exactly"
+forbidden_effect = "wrap or saturation"
+
+[[case]]
+id = "T-TIME-003"
+oracle = "first addition above u64::MAX returns typed addition overflow"
+forbidden_effect = "wrapped saturated default or partial value"
+
+[[case]]
+id = "T-TIME-004"
+oracle = "subtraction below zero returns typed underflow; equal subtraction returns zero"
+forbidden_effect = "wrap or panic"
+
+[[case]]
+id = "T-TIME-005"
+oracle = "generic Duration zero is valid; semantic positivity is enforced by owning higher-level constructors"
+forbidden_effect = "global zero prohibition"
+
+[[case]]
+id = "T-TIME-006"
+oracle = "checked multiplication handles 0/1/max-nonoverflow and rejects first overflow"
+forbidden_effect = "wrap saturation or panic"
+
+[[case]]
+id = "T-TIME-007"
+oracle = "duration-since equal/later/reversed cases preserve exact semantics"
+forbidden_effect = "underflow wrap"
+
+[[case]]
+id = "T-TIME-008"
+oracle = "Instant and Duration ordering equals unsigned tick ordering"
+forbidden_effect = "alternate hidden ordering"
+
+[[case]]
+id = "T-TIME-009"
+oracle = "safe public routes do not expose unchecked Add/Sub/Mul Default mutation or lossy conversion bypass"
+forbidden_effect = "invariant bypass route"
+
+[[case]]
+id = "T-TIME-010"
+oracle = "identical checked operations repeat identically"
+forbidden_effect = "ambient clock or external-state dependence"
+
+[[case]]
+id = "T-TASK-001"
+oracle = "valid C>0 T>0 C<=D<=T tuple preserves exact fields"
+forbidden_effect = "normalization that changes semantic input"
+
+[[case]]
+id = "T-TASK-002"
+oracle = "C=0 and T=0 are typed construction failures"
+forbidden_effect = "partial TaskParameters value"
+
+[[case]]
+id = "T-TASK-003"
+oracle = "C>D and D>T return distinct owned failures"
+forbidden_effect = "boolean or generic validation collapse"
+
+[[case]]
+id = "T-TASK-004"
+oracle = "C=D and D=T boundaries are accepted; D=T is derived implicit subset"
+forbidden_effect = "mutable profile flag drift"
+
+[[case]]
+id = "T-TASK-005"
+oracle = "empty borrowed TaskSet is valid when bound admits it"
+forbidden_effect = "synthetic fake task"
+
+[[case]]
+id = "T-TASK-006"
+oracle = "exact capacity succeeds; capacity+1 rejects atomically"
+forbidden_effect = "caller mutation or hidden copy buffer"
+
+[[case]]
+id = "T-TASK-007"
+oracle = "duplicate TaskId rejection preserves duplicate identity and caller slice"
+forbidden_effect = "input mutation or lost cause"
+
+[[case]]
+id = "T-TASK-008"
+oracle = "TaskSet iteration is finite/read-only and input order has no priority meaning"
+forbidden_effect = "hidden mutation or implicit priority"
+
+[[case]]
+id = "T-TASK-009"
+oracle = "permutation preserves validity and semantic policy result"
+forbidden_effect = "insertion-order tie-break"
+
+[[case]]
+id = "T-TASK-010"
+oracle = "all admitted safe construction/conversion routes preserve invariants"
+forbidden_effect = "alternate invariant bypass"
+
+[[case]]
+id = "T-POLICY-001"
+oracle = "distinct primary policy keys select expected task"
+forbidden_effect = "storage-position selection"
+
+[[case]]
+id = "T-POLICY-002"
+oracle = "equal primary key uses explicit deterministic secondary key"
+forbidden_effect = "unstable tie"
+
+[[case]]
+id = "T-POLICY-003"
+oracle = "identity is final total tie-break"
+forbidden_effect = "nondeterministic equal-key result"
+
+[[case]]
+id = "T-POLICY-004"
+oracle = "permuted equivalent set produces same selected identity"
+forbidden_effect = "input-order priority"
+
+[[case]]
+id = "T-POLICY-005"
+oracle = "repeated identical input produces equivalent decision trace"
+forbidden_effect = "ambient nondeterminism"
+
+[[case]]
+id = "T-SIM-001"
+oracle = "finite empty/idle scenario completes explicitly"
+forbidden_effect = "nontermination or synthetic job"
+
+[[case]]
+id = "T-SIM-002"
+oracle = "one periodic task produces expected releases execution and deadlines"
+forbidden_effect = "execution before release"
+
+[[case]]
+id = "T-SIM-003"
+oracle = "release/deadline exactly at horizon follows declared endpoint semantics"
+forbidden_effect = "release beyond half-open horizon"
+
+[[case]]
+id = "T-SIM-004"
+oracle = "step Budget exhaustion terminates explicitly before unbudgeted transition"
+forbidden_effect = "false CompletedHorizon or partial commit"
+
+[[case]]
+id = "T-SIM-005"
+oracle = "release/deadline arithmetic overflow returns typed failure"
+forbidden_effect = "partial misleading timeline"
+
+[[case]]
+id = "T-SIM-006"
+oracle = "equivalent reordered task input produces same semantic timeline"
+forbidden_effect = "storage-position semantics"
+
+[[case]]
+id = "T-AN-001"
+oracle = "simple exact schedulable vector produces positive outcome under bound model"
+forbidden_effect = "unsupported theorem substitution"
+
+[[case]]
+id = "T-AN-002"
+oracle = "simple exact unschedulable vector produces exact negative witness"
+forbidden_effect = "witness-free boolean false"
+
+[[case]]
+id = "T-AN-003"
+oracle = "valid data outside theorem assumptions yields UnsupportedModel"
+forbidden_effect = "false Unschedulable"
+
+[[case]]
+id = "T-AN-004"
+oracle = "proof Budget exhaustion yields Inconclusive"
+forbidden_effect = "false Unschedulable or false Schedulable"
+
+[[case]]
+id = "T-AN-005"
+oracle = "arithmetic extrema cannot produce verdict from invalid intermediate arithmetic"
+forbidden_effect = "wrap saturation or partial verdict"
+
+[[case]]
+id = "P-DET-001"
+oracle = "bounded generated valid sets repeat and permute with deterministic semantic result"
+forbidden_effect = "ambient or insertion-order nondeterminism"
+
+[[case]]
+id = "P-BOUND-001"
+oracle = "generated cardinalities respect declared capacity and rejection atomicity"
+forbidden_effect = "over-capacity accepted state"
+
+[[case]]
+id = "P-ARITH-001"
+oracle = "checked time arithmetic agrees with independent integer reference"
+forbidden_effect = "silent overflow or underflow"
+
+[[case]]
+id = "P-TERM-001"
+oracle = "simulation/analysis semantic steps never exceed explicit Budget"
+forbidden_effect = "unbounded continuation"
+
+[[case]]
+id = "R-ARITH-001"
+oracle = "each discovered arithmetic boundary defect gains a permanent fixed regression vector"
+forbidden_effect = "regression vector removal without replacement review"
+
+[[case]]
+id = "R-DEADLINE-001"
+oracle = "each discovered deadline-boundary defect gains a permanent fixed regression vector"
+forbidden_effect = "regression vector removal without replacement review"
+
+[[case]]
+id = "C-API-001"
+oracle = "invalid states intended to be unrepresentable have negative compile/API coverage where feasible"
+forbidden_effect = "safe public invariant bypass"
+
+[[case]]
+id = "C-STRUCT-001"
+oracle = "compiler-observed first-party closure contains no mod.rs"
+forbidden_effect = "filesystem or generated-source bypass"
+
+[[case]]
+id = "C-STRUCT-002"
+oracle = "resolved first-party closure contains no unwrap/expect or equivalent panic shortcut"
+forbidden_effect = "allow/expect lint or helper alias bypass"
+
+[[case]]
+id = "C-STRUCT-003"
+oracle = "Profile A exact production graph has no unqualified std/alloc/heap/global-allocator reachability"
+forbidden_effect = "host-only evidence reclassified as target proof"
+
+[[case]]
+id = "MAP-001"
+oracle = "exhaustive public mapping preserves every error/outcome variant witness and material cause"
+forbidden_effect = "bool string default or generic-error collapse"
+
+[[case]]
+id = "CROSS-001"
+oracle = "selected small exact vectors agree across independent analysis/simulation observations where both are applicable"
+forbidden_effect = "simulation promoted to general theorem proof"
+
+[[reference_vector]]
+id = "RTA-V001"
+oracle = "RM: tau1 [1,1]; tau2 [1,2,2]; Schedulable"
+
+[[reference_vector]]
+id = "RTA-V002"
+oracle = "RM: tau1 [2,2]; tau2 [2,4,6]; Unschedulable at response 6 > deadline 5"
+
+[[reference_vector]]
+id = "RTA-V003"
+oracle = "DM: tau1 [1,1]; tau2 [2,3,3]; Schedulable"
+
+[[reference_vector]]
+id = "RTA-V004"
+oracle = "DM: U=9/10; tau1 [2,2]; tau2 [4,6,8]; Unschedulable at 8 > 6"
+
+[[reference_vector]]
+id = "EDF-DBF-V001"
+oracle = "U=24/35; A=4; points 2,3; demand(3)=4>3"
+
+[[reference_vector]]
+id = "EDF-DBF-V002"
+oracle = "U=9/20; A=2; point 2; demand(2)=1; Schedulable"
+
+[[reference_vector]]
+id = "EDF-U-V001"
+oracle = "U=1; Schedulable"
+
+[[reference_vector]]
+id = "EDF-U-V002"
+oracle = "U=7/6; Unschedulable"
+
+
+# Owner-selected first-miss policy cases are now part of SUITE_SIMULATION.
+
+[[case]]
+id = "T-SIM-B-MISS-001"
+oracle = "an incomplete job at its due deadline terminates with a deterministic DeadlineMiss witness"
+forbidden_effect = "continuation past the miss or a generic arithmetic/resource error"
+
+[[case]]
+id = "T-SIM-B-MISS-002"
+oracle = "when an incomplete deadline and next release share one timestamp, deadline miss is processed first and the new release is not admitted"
+forbidden_effect = "same-timestamp successor release after the terminating miss"
+
+[[case]]
+id = "P-SIM-B-LIVEJOB-001"
+oracle = "for every continuing pre-miss state under D<=T, each task has at most one live job"
+forbidden_effect = "second live job for one task before termination"
+
+[policy_selection_gate]
+selected_policy = "TERMINATE_ON_FIRST_MISS"
+base_case_count_before_selection = 48
+selected_policy_case_count = 3
+total_planned_case_count = 51
+rule = "All 51 planned cases are required for the selected-B verification plan; zero executed cases never constitute PASS."
+
+
+[[suite]]
+id = "SUITE_RESOURCE_PROFILE"
+evidence_class = "BOUNDARY_AND_PROPERTY"
+activation_condition = "OWNER_BOUND_2026_11_27"
+case_ids = [
+  "T-RES-TASK-032",
+  "T-RES-TASK-033",
+  "T-RES-ACTIVE-032",
+  "T-RES-IMPORT-65536",
+  "T-RES-IMPORT-65537",
+  "T-RES-ANALYSIS-000",
+  "T-RES-ANALYSIS-MAX",
+  "T-RES-ANALYSIS-OVER",
+  "T-RES-SIM-000",
+  "T-RES-SIM-MAX",
+  "T-RES-SIM-OVER",
+  "T-RES-TIMELINE-000",
+  "T-RES-TIMELINE-MAX",
+  "T-RES-TIMELINE-OVER",
+  "T-RES-LIMIT-U32",
+  "T-RES-UNIT-TICK",
+  "T-RES-UNIT-OTHER",
+]
+invariant_ids = [
+  "INV-RES-001",
+  "INV-RES-002",
+  "INV-RES-003",
+  "INV-RES-004",
+  "INV-RES-005",
+  "INV-RES-006",
+  "INV-RES-007",
+  "INV-RES-008",
+]
+required_negative_cases = [
+  "T-RES-TASK-033",
+  "T-RES-IMPORT-65537",
+  "T-RES-ANALYSIS-000",
+  "T-RES-ANALYSIS-OVER",
+  "T-RES-SIM-000",
+  "T-RES-SIM-OVER",
+  "T-RES-TIMELINE-000",
+  "T-RES-TIMELINE-OVER",
+  "T-RES-UNIT-OTHER",
+]
+
+[[case]]
+id = "T-RES-TASK-032"
+oracle = "exactly 32 otherwise-valid unique tasks are within the prepared profile cardinality"
+forbidden_effect = "capacity rejection below or at the selected maximum"
+
+[[case]]
+id = "T-RES-TASK-033"
+oracle = "33 tasks reject atomically before duplicate scan/domain-state commit"
+forbidden_effect = "partial TaskSet or hidden truncation"
+
+[[case]]
+id = "T-RES-ACTIVE-032"
+oracle = "under first-miss semantics, live/ready jobs never exceed admitted task count and never exceed 32"
+forbidden_effect = "second live same-task job or hidden backlog"
+
+[[case]]
+id = "T-RES-IMPORT-65536"
+oracle = "65,536 raw bytes may proceed to codec/schema validation"
+forbidden_effect = "premature byte-limit rejection"
+
+[[case]]
+id = "T-RES-IMPORT-65537"
+oracle = "65,537 raw bytes reject before full decode/parse"
+forbidden_effect = "full parse, truncation, or partial semantic state"
+
+[[case]]
+id = "T-RES-ANALYSIS-000"
+oracle = "analysis Budget 0 is a typed request validation failure"
+forbidden_effect = "zero-cost proof loop or implicit default"
+
+[[case]]
+id = "T-RES-ANALYSIS-MAX"
+oracle = "analysis Budget 1,048,576 is accepted exactly"
+forbidden_effect = "off-by-one maximum rejection"
+
+[[case]]
+id = "T-RES-ANALYSIS-OVER"
+oracle = "analysis Budget 1,048,577 is rejected before proof work"
+forbidden_effect = "clamp or silent maximum substitution"
+
+[[case]]
+id = "T-RES-SIM-000"
+oracle = "simulation step Budget 0 is a typed request validation failure"
+forbidden_effect = "unbounded or implicit-default simulation"
+
+[[case]]
+id = "T-RES-SIM-MAX"
+oracle = "simulation step Budget 65,536 is accepted exactly"
+forbidden_effect = "off-by-one maximum rejection"
+
+[[case]]
+id = "T-RES-SIM-OVER"
+oracle = "simulation step Budget 65,537 is rejected before simulation"
+forbidden_effect = "clamp or silent maximum substitution"
+
+[[case]]
+id = "T-RES-TIMELINE-000"
+oracle = "timeline capacity 0 is a typed request validation failure"
+forbidden_effect = "hidden buffer or synthetic capacity"
+
+[[case]]
+id = "T-RES-TIMELINE-MAX"
+oracle = "timeline capacity 16,384 is accepted exactly"
+forbidden_effect = "off-by-one maximum rejection"
+
+[[case]]
+id = "T-RES-TIMELINE-OVER"
+oracle = "timeline capacity 16,385 is rejected before simulation"
+forbidden_effect = "clamp, allocation growth, or silent truncation"
+
+[[case]]
+id = "T-RES-LIMIT-U32"
+oracle = "all selected profile maxima round-trip through u32 exactly and indexing conversion is checked"
+forbidden_effect = "usize-defined public meaning or narrowing truncation"
+
+[[case]]
+id = "T-RES-UNIT-TICK"
+oracle = "external unit identifier TICK is accepted without scale conversion"
+forbidden_effect = "implicit physical unit scaling"
+
+[[case]]
+id = "T-RES-UNIT-OTHER"
+oracle = "non-TICK external unit identifiers are rejected in v0.1"
+forbidden_effect = "guessed conversion or lossy rounding"
+
+[resource_profile_binding]
+profile_sha256 = "38553424ef1a9df1e732cb49b0e1085a8eca01d8d3b135ad0b021dd267d537c0"
+binding_state = "OWNER_BOUND_2026_11_27"
+existing_selected_b_case_count = 51
+resource_profile_case_count = 17
+total_case_count = 68
+existing_selected_b_invariant_count = 34
+resource_profile_invariant_count = 8
+total_invariant_count = 42
+rule = "The resource suite and eight resource invariants are active obligations under the exact Owner-bound v0.1 resource profile."
