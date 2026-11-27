@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.9
+@version 0.1.0-draft.10
 @description Public project overview, implemented foundation, architecture, model, roadmap, and verification boundaries.
 -->
 
@@ -10,6 +10,8 @@
 SOV-TIME is an engineering-focused Rust project for modeling periodic real-time workloads, evaluating schedulability, and producing deterministic scheduling simulations under explicit mathematical and resource bounds. A browser-based WebAssembly interface is planned as a separate hosted layer.
 
 > **Project status:** active development. The low-level domain foundation is now partially implemented and verified, while task modeling, schedulers, schedulability analysis, simulation, and the browser application are still under construction. There is no production release, hardware real-time guarantee, WCET claim, safety certification, or security certification.
+
+The public API is pre-release and may change before the first versioned release. Current documentation distinguishes implemented behavior from planned architecture so that roadmap items are not presented as available features.
 
 ## What is implemented now
 
@@ -22,10 +24,55 @@ The current `sov-time-domain` foundation includes:
 - `CapacityState`: bounded acquire/release accounting with atomic failure semantics.
 - `Budget`: monotonic bounded work accounting with explicit exhaustion.
 - `RelativeDeadline`: a strictly positive wrapper over abstract `Duration`, with typed zero rejection and exact duration ordering.
+- public zero-payload domain error enums support `Debug` and equality comparison without adding `Copy`/`Clone` commitments.
 - `#![no_std]` domain source with no external crate dependencies in the current foundation manifest.
 - typed failure paths with no ordinary `unwrap()`, `expect()`, panic fallback, wrapping arithmetic, saturation, or magic sentinels.
 
 The implemented foundation has been exercised through host formatting, compilation, build, Clippy checks, direct integration-test execution, and direct `wasm32-unknown-unknown` compilation for the exact implemented source increments. These checks do **not** establish a complete workspace release or a global no-heap/WCET guarantee.
+
+## Current foundation example
+
+The snippet below illustrates only the currently implemented public API. It is not a release/install instruction for the still-incomplete six-member workspace.
+
+```rust
+use sov_time_domain::{Budget, CapacityState, Duration, Instant, Limit, RelativeDeadline};
+
+fn main() {
+    let Ok(capacity_limit) = Limit::new(2) else {
+        return;
+    };
+    let mut capacity = CapacityState::new(capacity_limit);
+    if capacity.try_acquire_one().is_err() {
+        return;
+    }
+
+    let Ok(budget_limit) = Limit::new(3) else {
+        return;
+    };
+    let mut budget = Budget::new(budget_limit);
+    if budget.try_consume_one().is_err() {
+        return;
+    }
+
+    let execution_window = Duration::from_ticks(20);
+    let Ok(deadline) = RelativeDeadline::new(execution_window) else {
+        return;
+    };
+
+    let release = Instant::from_ticks(5);
+    let Ok(absolute_deadline) = release.checked_add(deadline.duration()) else {
+        return;
+    };
+
+    if absolute_deadline.ticks() != 25 {
+        return;
+    }
+
+    let _resource_state = (capacity.used(), budget.remaining());
+}
+```
+
+The example uses abstract ticks only. It does not attach seconds, milliseconds, wall-clock time, or hardware timing semantics to the domain values.
 
 ## Target model: v0.1
 
@@ -150,11 +197,13 @@ The complete six-member workspace is **not yet release-qualified** because sever
 ## Documentation
 
 - [Architecture](docs/ARCHITECTURE.md)
+- [Design record](docs/DESIGN.md)
 - [Mathematical model](docs/MATHEMATICAL_MODEL.md)
 - [Memory and resource model](docs/MEMORY_MODEL.md)
 - [Error model](docs/ERROR_MODEL.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
 
 ## Important limitations
 

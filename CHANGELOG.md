@@ -1,5 +1,5 @@
 <!--
-@version 0.1.0-draft.13
+@version 0.1.0-draft.14
 @description Chronological record of verified project changes and release status.
 -->
 
@@ -30,6 +30,8 @@ This file records project changes. Entries under Unreleased describe development
 - Verified the implemented domain increments with host formatting/check/build/Clippy, direct integration-test execution, and direct `wasm32-unknown-unknown` compilation plus allocator/std reachability scanning for the exact verified source snapshots.
 - Clarified the public contribution workflow so external fork/pull-request participation is distinct from the canonical owner's single-root, `main`-only local engineering policy.
 - Updated the public security policy to describe the implemented bounded domain foundation accurately without implying an established global no-heap, WCET, or target-security guarantee.
+- Added `Debug`, `Eq`, and `PartialEq` to the existing public domain error enums while deliberately avoiding `Copy`/`Clone`, new failure variants, or conversion APIs.
+- Added a compiler- and Clippy-verified README example for the currently implemented domain foundation, plus explicit pre-release API stability and documentation links.
 
 - MIT License selected under delegated owner authority and written to `LICENSE`; the published root Cargo workspace metadata declares `license = "MIT"` consistently.
 
